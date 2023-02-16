@@ -9,10 +9,6 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(path)
         self.rect = self.image.get_rect()
-        self.surface = pygame.Surface((self.image.get_width(), self.image.get_height()))
-        self.surface.set_colorkey(grey)
-        pygame.draw.rect(self.surface, grey, (0, 0, *self.image.get_size()))
-        self.surface.blit(self.image, (0, 0))
         self.spawn_x = spawn_x_pos
         self.spawn_y = spawn_y_pos
         self.current_x = spawn_x_pos
@@ -29,11 +25,8 @@ class Player(pygame.sprite.Sprite):
         self.lives = 3
         self.rect.center = (self.current_x, self.current_y)
 
-    def get_asset(self):
+    def get_image(self):
         return self.image
-
-    def get_surface(self):
-        return self.surface
 
     def get_spawn_x(self):
         return self.spawn_x
@@ -80,11 +73,8 @@ class Player(pygame.sprite.Sprite):
     def get_rect(self):
         return self.rect
 
-    def set_asset(self, asset):
+    def set_image(self, asset):
         self.image = asset
-
-    def set_surface(self, surface):
-        self.surface = surface
 
     def set_spawn_x(self, spawn_x):
         self.spawn_x = spawn_x
@@ -201,5 +191,5 @@ class Player(pygame.sprite.Sprite):
         if self.get_left():
             self.set_current_x(self.get_current_x() + self.get_speed()[0])
 
-        self.set_rect(self.get_surface().get_rect())
+        self.set_rect(self.get_image().get_rect())
         self.set_rect_center(self.get_current_x(), self.get_current_y())
