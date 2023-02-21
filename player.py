@@ -1,18 +1,63 @@
 import pygame
-from pygame import JOYHATMOTION
-
 from config import *
 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, path, spawn_x_pos, spawn_y_pos):
         super().__init__()
-        self.image = pygame.image.load(path)
-        self.rect = self.image.get_rect()
+        self.sprites_down_s = []
+        self.sprites_down_w = []
+        self.sprites_up_s = []
+        self.sprites_up_w = []
+        self.sprites_right_s = []
+        self.sprites_right_w = []
+        self.sprites_left_s = []
+        self.sprites_left_w = []
+        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static1.png"))
+        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static2.png"))
+        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static3.png"))
+        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static4.png"))
+        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static5.png"))
+        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking1.png"))
+        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking2.png"))
+        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking3.png"))
+        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking4.png"))
+        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static1.png"))
+        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static2.png"))
+        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static3.png"))
+        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static4.png"))
+        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static5.png"))
+        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking1.png"))
+        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking2.png"))
+        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking3.png"))
+        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking4.png"))
+        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static1.png"))
+        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static2.png"))
+        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static3.png"))
+        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static4.png"))
+        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static5.png"))
+        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking1.png"))
+        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking2.png"))
+        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking3.png"))
+        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking4.png"))
+        self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[0], True, False))
+        self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[1], True, False))
+        self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[2], True, False))
+        self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[3], True, False))
+        self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[4], True, False))
+        self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[0], True, False))
+        self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[1], True, False))
+        self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[2], True, False))
+        self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[3], True, False))
+        self.current_sprite = 0
+        self.sprite_state = 2
+        self.image = self.sprites_right_s[self.current_sprite]
         self.spawn_x = spawn_x_pos
         self.spawn_y = spawn_y_pos
         self.current_x = spawn_x_pos
         self.current_y = spawn_y_pos
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.current_x, self.current_y)
         self.up = False
         self.right = False
         self.left = False
@@ -23,7 +68,6 @@ class Player(pygame.sprite.Sprite):
         self.reload_time = 0
         self.projectiles = []
         self.lives = 3
-        self.rect.center = (self.current_x, self.current_y)
 
     def get_image(self):
         return self.image
@@ -127,8 +171,34 @@ class Player(pygame.sprite.Sprite):
     def set_rect(self, rect):
         self.rect = rect
 
-    def set_rect_center(self, x, y):
-        self.rect.center = (x, y)
+    def set_rect_topleft(self, x, y):
+        self.rect.topleft = (x, y)
+
+    def update(self):
+        self.current_sprite += 0.1
+        if self.up or self.down or self.right or self.left:
+            if self.current_sprite >= 4:
+                self.current_sprite = 0
+            if self.sprite_state == 1:
+                self.image = self.sprites_up_w[int(self.current_sprite)]
+            elif self.sprite_state == 2:
+                self.image = self.sprites_right_w[int(self.current_sprite)]
+            elif self.sprite_state == 3:
+                self.image = self.sprites_left_w[int(self.current_sprite)]
+            elif self.sprite_state == 4:
+                self.image = self.sprites_down_w[int(self.current_sprite)]
+
+        else:
+            if self.current_sprite >= 5:
+                self.current_sprite = 0
+            if self.sprite_state == 1:
+                self.image = self.sprites_up_s[int(self.current_sprite)]
+            elif self.sprite_state == 2:
+                self.image = self.sprites_right_s[int(self.current_sprite)]
+            elif self.sprite_state == 3:
+                self.image = self.sprites_left_s[int(self.current_sprite)]
+            elif self.sprite_state == 4:
+                self.image = self.sprites_down_s[int(self.current_sprite)]
 
     def set_movement(self, event):
 
@@ -137,41 +207,49 @@ class Player(pygame.sprite.Sprite):
             self.set_down(False)
             self.set_right(False)
             self.set_left(False)
+            self.sprite_state = 1
         elif event == (1, 1):
             self.set_up(True)
             self.set_right(True)
             self.set_down(False)
             self.set_left(False)
+            self.sprite_state = 2
         elif event == (-1, 1):
             self.set_up(True)
             self.set_left(True)
             self.set_down(False)
             self.set_right(False)
+            self.sprite_state = 3
         elif event == (0, -1):
             self.set_down(True)
             self.set_up(False)
             self.set_right(False)
             self.set_left(False)
+            self.sprite_state = 4
         elif event == (1, -1):
             self.set_down(True)
             self.set_right(True)
             self.set_up(False)
             self.set_left(False)
+            self.sprite_state = 2
         elif event == (-1, -1):
             self.set_down(True)
             self.set_left(True)
             self.set_right(False)
             self.set_up(False)
+            self.sprite_state = 3
         elif event == (1, 0):
             self.set_right(True)
             self.set_up(False)
             self.set_down(False)
             self.set_left(False)
+            self.sprite_state = 2
         elif event == (-1, 0):
             self.set_left(True)
             self.set_up(False)
             self.set_down(False)
             self.set_right(False)
+            self.sprite_state = 3
         elif event == (0, 0):
             self.set_up(False)
             self.set_down(False)
@@ -192,4 +270,4 @@ class Player(pygame.sprite.Sprite):
             self.set_current_x(self.get_current_x() + self.get_speed()[0])
 
         self.set_rect(self.get_image().get_rect())
-        self.set_rect_center(self.get_current_x(), self.get_current_y())
+        self.set_rect_topleft(self.get_current_x(), self.get_current_y())

@@ -19,7 +19,7 @@ pygame.display.set_caption("Zombie Pew Pew")
 font = pygame.font.Font('assets/PressStart2P.ttf', 45)
 
 # players
-cow1 = Player("assets/character1_80x60.png", 250, 300)
+cow1 = Player("assets/Character_1/", 250, 300)
 player_group = pygame.sprite.Group()
 player_group.add(cow1)
 
@@ -46,4 +46,5 @@ while loop:
     pygame.display.flip()
     screen.blit(background3, (175, 0))
     player_group.draw(screen)
+    player_group.update()
     clock.tick(60)
