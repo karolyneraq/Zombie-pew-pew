@@ -41,14 +41,13 @@ while loop:
         if event.type == pygame.QUIT:
             loop = False
 
-        # setting the hat commands
-
-    cow1.set_fire()
-    cow1.set_movement()
+    cow1.set_movement(pygame.joystick.Joystick(0))
+    cow1.set_fire(pygame.joystick.Joystick(0))
     cow1.move()
     zombie.move()
 
     for bullet in cow1.get_bullets():
+        screen.blit(bullet.get_image(), bullet.get_rect())
         bullet.move()
 
     pygame.display.flip()

@@ -201,37 +201,9 @@ class Zombie(pygame.sprite.Sprite):
                 self.image = self.sprites_down_s[int(self.current_sprite)]
 
     def move(self):
-        if self.get_up():
-            if self.current_y <= 0:
-                self.speed[1] *= -1
-                self.up = False
-                self.set_current_y(self.get_current_y() + self.get_speed()[1])
-                self.down = True
-            else:
-                self.set_current_y(self.get_current_y() + self.get_speed()[1])
+        if self.rect.top <= 0 or self.rect.bottom >= 600:
+            self.speed[1] *= -1
+        self.current_y = self.current_y + self.speed[1]
 
-        if self.get_down():
-            if self.current_y >= 600:
-                self.speed[1] *= -1
-                self.down = False
-                self.set_current_y(self.get_current_y() + self.get_speed()[1])
-                self.up = True
-            else:
-                self.set_current_y(self.get_current_y() - self.get_speed()[1])
-
-        if self.get_right():
-            if self.current_x >= 925:
-                self.speed[0] *= -1
-                self.right = False
-            else:
-                self.set_current_x(self.get_current_x() - self.get_speed()[0])
-
-        if self.get_left():
-            if self.current_x <= 175:
-                self.speed[0] *= -1
-                self.left = False
-            else:
-                self.set_current_x(self.get_current_x() + self.get_speed()[0])
-
-        self.set_rect(self.get_image().get_rect())
-        self.set_rect_topleft(self.get_current_x(), self.get_current_y())
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.current_x, self.current_y)
