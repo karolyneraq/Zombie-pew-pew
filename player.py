@@ -68,7 +68,7 @@ class Player(pygame.sprite.Sprite):
         self.reloading = False
         self.reload_cooldown = 500
         self.reload_time = 0
-        self.bullets = []
+        self.bullets = pygame.sprite.Group()
         self.lives = 3
 
     def get_image(self):
@@ -159,7 +159,7 @@ class Player(pygame.sprite.Sprite):
         self.reload_time = reload_time
 
     def add_bullet(self, projectile):
-        self.bullets.append(projectile)
+        self.bullets.add(projectile)
 
     def remove_bullet(self, projectile):
         self.bullets.remove(projectile)
@@ -283,22 +283,22 @@ class Player(pygame.sprite.Sprite):
             if direction == (0, 0):
                 direction = (1, 0)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midright[0], self.rect.midright[1])
-            self.bullets.append(bullet)
+            self.bullets.add(bullet)
         elif self.sprite_state == 1:
             if direction == (0, 0):
                 direction = (0, 1)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midtop[0], self.rect.midtop[1])
-            self.bullets.append(bullet)
+            self.bullets.add(bullet)
         elif self.sprite_state == 3:
             if direction == (0, 0):
                 direction = (-1, 0)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midleft[0], self.rect.midleft[1])
-            self.bullets.append(bullet)
+            self.bullets.add(bullet)
         elif self.sprite_state == 4:
             if direction == (0, 0):
                 direction = (0, -1)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midbottom[0], self.rect.midbottom[1])
-            self.bullets.append(bullet)
+            self.bullets.add(bullet)
 
     def set_fire(self, joy):
         if joy.get_button(1) == 1 and not self.reloading:

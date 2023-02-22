@@ -41,19 +41,23 @@ while loop:
         if event.type == pygame.QUIT:
             loop = False
 
+    # Movement Keys
     cow1.set_movement(pygame.joystick.Joystick(0))
     cow1.set_fire(pygame.joystick.Joystick(0))
+
+    # Moving the objects
     cow1.move()
     zombie.move()
-
     for bullet in cow1.get_bullets():
-        screen.blit(bullet.get_image(), bullet.get_rect())
         bullet.move()
 
+    # Showing everything
     pygame.display.flip()
     screen.blit(background3, (175, 0))
     zombie_group.draw(screen)
     player_group.draw(screen)
+    cow1.get_bullets().draw(screen)
     zombie_group.update()
     player_group.update()
+
     clock.tick(60)
