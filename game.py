@@ -1,6 +1,5 @@
 import pygame
 from player import Player
-from pygame.locals import *
 from config import *
 from zombie import Zombie
 
@@ -44,11 +43,13 @@ while loop:
 
         # setting the hat commands
 
-        if event.type == JOYBUTTONDOWN:
-            print(event)
+    cow1.set_fire()
     cow1.set_movement()
     cow1.move()
     zombie.move()
+
+    for bullet in cow1.get_bullets():
+        bullet.move()
 
     pygame.display.flip()
     screen.blit(background3, (175, 0))
