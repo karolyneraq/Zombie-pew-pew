@@ -1,5 +1,7 @@
 player_speed_x = -1.3
 player_speed_y = -1.3
+zombie_speed_x = -2.0
+zombie_speed_y = -2.0
 black = (0, 0, 0)
 grey = (128, 128, 128)
 orange = (255, 157, 4)
