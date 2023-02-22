@@ -151,9 +151,6 @@ class Player(pygame.sprite.Sprite):
     def reset_speed(self):
         self.speed = pygame.math.Vector2((player_speed_x, player_speed_y))
 
-    def set_fire(self, fire):
-        self.fire = fire
-
     def set_reloading(self, reloading):
         self.reloading = reloading
 
@@ -292,3 +289,8 @@ class Player(pygame.sprite.Sprite):
         else:
             if time == 1000:
                 self.reloading = False
+
+    def set_fire(self):
+        if pygame.joystick.Joystick(0).get_button(1) == 1:
+            self.fire = True
+            self.shoot(pygame.time.get_ticks())
