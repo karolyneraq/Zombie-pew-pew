@@ -37,10 +37,10 @@ while loop:
             loop = False
 
         # setting the hat commands
-        if event.type == JOYHATMOTION:
-            print(event)
-            cow1.set_movement(pygame.joystick.Joystick(0).get_hat(0))
 
+        if event.type == JOYBUTTONDOWN:
+            print(event)
+    cow1.set_movement()
     cow1.move()
 
     pygame.display.flip()

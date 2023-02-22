@@ -1,4 +1,5 @@
 import pygame
+from projectile import Projectile
 from config import *
 
 
@@ -65,8 +66,8 @@ class Player(pygame.sprite.Sprite):
         self.speed = pygame.math.Vector2((player_speed_x, player_speed_y))
         self.fire = False
         self.reloading = False
-        self.reload_time = 0
-        self.projectiles = []
+        self.reload_time = 1000
+        self.bullets = []
         self.lives = 3
 
     def get_image(self):
@@ -108,8 +109,8 @@ class Player(pygame.sprite.Sprite):
     def get_reload_time(self):
         return self.reload_time
 
-    def get_projectiles(self):
-        return self.projectiles
+    def get_bullets(self):
+        return self.bullets
 
     def get_lives(self):
         return self.lives
@@ -159,11 +160,11 @@ class Player(pygame.sprite.Sprite):
     def set_reload_time(self, reload_time):
         self.reload_time = reload_time
 
-    def add_projectile(self, projectile):
-        self.projectiles.append(projectile)
+    def add_bullet(self, projectile):
+        self.bullets.append(projectile)
 
-    def remove_projectile(self, projectile):
-        self.projectiles.remove(projectile)
+    def remove_bullet(self, projectile):
+        self.bullets.remove(projectile)
 
     def set_lives(self, lives):
         self.lives = lives
@@ -200,8 +201,8 @@ class Player(pygame.sprite.Sprite):
             elif self.sprite_state == 4:
                 self.image = self.sprites_down_s[int(self.current_sprite)]
 
-    def set_movement(self, event):
-
+    def set_movement(self):
+        event = pygame.joystick.Joystick(0).get_hat(0)
         if event == (0, 1):
             self.set_up(True)
             self.set_down(False)
@@ -257,17 +258,37 @@ class Player(pygame.sprite.Sprite):
             self.set_left(False)
 
     def move(self):
-        if self.get_up():
-            self.set_current_y(self.get_current_y() + self.get_speed()[1])
+        if self.up:
+            self.current_y = self.current_y + self.speed[1]
 
-        if self.get_down():
-            self.set_current_y(self.get_current_y() - self.get_speed()[1])
+        if self.down:
+            self.current_y = self.current_y - self.speed[1]
 
-        if self.get_right():
-            self.set_current_x(self.get_current_x() - self.get_speed()[0])
+        if self.right:
+            self.current_x = self.current_x - self.speed[0]
 
-        if self.get_left():
-            self.set_current_x(self.get_current_x() + self.get_speed()[0])
+        if self.left:
+            self.current_x = self.current_x + self.speed[0]
 
-        self.set_rect(self.get_image().get_rect())
-        self.set_rect_topleft(self.get_current_x(), self.get_current_y())
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.current_x, self.current_y)
+
+    def shoot(self, time):
+        if self.fire and not self.reloading:
+            self.fire = False
+            self.reloading = True
+            if self.sprite_state == 2:
+                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midright[0], self.rect.midright[1])
+                self.bullets.append(bullet)
+            elif self.sprite_state == 1:
+                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midtop[0], self.rect.midtop[1])
+                self.bullets.append(bullet)
+            elif self.sprite_state == 3:
+                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midleft[0], self.rect.midleft[1])
+                self.bullets.append(bullet)
+            elif self.sprite_state == 4:
+                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midbottom[0], self.rect.midbottom[1])
+                self.bullets.append(bullet)
+        else:
+            if time == 1000:
+                self.reloading = False
