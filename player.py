@@ -66,8 +66,9 @@ class Player(pygame.sprite.Sprite):
         self.speed = pygame.math.Vector2((player_speed_x, player_speed_y))
         self.fire = False
         self.reloading = False
-        self.reload_time = 1000
-        self.bullets = []
+        self.reload_cooldown = 500
+        self.reload_time = 0
+        self.bullets = pygame.sprite.Group()
         self.lives = 3
 
     def get_image(self):
@@ -158,7 +159,7 @@ class Player(pygame.sprite.Sprite):
         self.reload_time = reload_time
 
     def add_bullet(self, projectile):
-        self.bullets.append(projectile)
+        self.bullets.add(projectile)
 
     def remove_bullet(self, projectile):
         self.bullets.remove(projectile)
@@ -198,57 +199,56 @@ class Player(pygame.sprite.Sprite):
             elif self.sprite_state == 4:
                 self.image = self.sprites_down_s[int(self.current_sprite)]
 
-    def set_movement(self):
-        event = pygame.joystick.Joystick(0).get_hat(0)
-        if event == (0, 1):
+    def set_movement(self, joy):
+        if joy.get_hat(0) == (0, 1):
             self.set_up(True)
             self.set_down(False)
             self.set_right(False)
             self.set_left(False)
             self.sprite_state = 1
-        elif event == (1, 1):
+        elif joy.get_hat(0) == (1, 1):
             self.set_up(True)
             self.set_right(True)
             self.set_down(False)
             self.set_left(False)
             self.sprite_state = 2
-        elif event == (-1, 1):
+        elif joy.get_hat(0) == (-1, 1):
             self.set_up(True)
             self.set_left(True)
             self.set_down(False)
             self.set_right(False)
             self.sprite_state = 3
-        elif event == (0, -1):
+        elif joy.get_hat(0) == (0, -1):
             self.set_down(True)
             self.set_up(False)
             self.set_right(False)
             self.set_left(False)
             self.sprite_state = 4
-        elif event == (1, -1):
+        elif joy.get_hat(0) == (1, -1):
             self.set_down(True)
             self.set_right(True)
             self.set_up(False)
             self.set_left(False)
             self.sprite_state = 2
-        elif event == (-1, -1):
+        elif joy.get_hat(0) == (-1, -1):
             self.set_down(True)
             self.set_left(True)
             self.set_right(False)
             self.set_up(False)
             self.sprite_state = 3
-        elif event == (1, 0):
+        elif joy.get_hat(0) == (1, 0):
             self.set_right(True)
             self.set_up(False)
             self.set_down(False)
             self.set_left(False)
             self.sprite_state = 2
-        elif event == (-1, 0):
+        elif joy.get_hat(0) == (-1, 0):
             self.set_left(True)
             self.set_up(False)
             self.set_down(False)
             self.set_right(False)
             self.sprite_state = 3
-        elif event == (0, 0):
+        elif joy.get_hat(0) == (0, 0):
             self.set_up(False)
             self.set_down(False)
             self.set_right(False)
@@ -256,41 +256,55 @@ class Player(pygame.sprite.Sprite):
 
     def move(self):
         if self.up:
+            if self.speed[1] > 0:
+                self.speed[1] *= -1
             self.current_y = self.current_y + self.speed[1]
 
         if self.down:
-            self.current_y = self.current_y - self.speed[1]
+            if self.speed[1] < 0:
+                self.speed[1] *= -1
+            self.current_y = self.current_y + self.speed[1]
 
         if self.right:
-            self.current_x = self.current_x - self.speed[0]
+            if self.speed[0] < 0:
+                self.speed[0] *= -1
+            self.current_x = self.current_x + self.speed[0]
 
         if self.left:
+            if self.speed[0] > 0:
+                self.speed[0] *= -1
             self.current_x = self.current_x + self.speed[0]
 
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.current_x, self.current_y)
 
-    def shoot(self, time):
-        if self.fire and not self.reloading:
-            self.fire = False
-            self.reloading = True
-            if self.sprite_state == 2:
-                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midright[0], self.rect.midright[1])
-                self.bullets.append(bullet)
-            elif self.sprite_state == 1:
-                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midtop[0], self.rect.midtop[1])
-                self.bullets.append(bullet)
-            elif self.sprite_state == 3:
-                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midleft[0], self.rect.midleft[1])
-                self.bullets.append(bullet)
-            elif self.sprite_state == 4:
-                bullet = Projectile("assets/bullet.png", self.speed, self.rect.midbottom[0], self.rect.midbottom[1])
-                self.bullets.append(bullet)
-        else:
-            if time == 1000:
-                self.reloading = False
+    def shoot(self, direction):
+        if self.sprite_state == 2:
+            if direction == (0, 0):
+                direction = (1, 0)
+            bullet = Projectile("assets/bullet.png", direction, self.rect.midright[0], self.rect.midright[1])
+            self.bullets.add(bullet)
+        elif self.sprite_state == 1:
+            if direction == (0, 0):
+                direction = (0, 1)
+            bullet = Projectile("assets/bullet.png", direction, self.rect.midtop[0], self.rect.midtop[1])
+            self.bullets.add(bullet)
+        elif self.sprite_state == 3:
+            if direction == (0, 0):
+                direction = (-1, 0)
+            bullet = Projectile("assets/bullet.png", direction, self.rect.midleft[0], self.rect.midleft[1])
+            self.bullets.add(bullet)
+        elif self.sprite_state == 4:
+            if direction == (0, 0):
+                direction = (0, -1)
+            bullet = Projectile("assets/bullet.png", direction, self.rect.midbottom[0], self.rect.midbottom[1])
+            self.bullets.add(bullet)
 
-    def set_fire(self):
-        if pygame.joystick.Joystick(0).get_button(1) == 1:
-            self.fire = True
-            self.shoot(pygame.time.get_ticks())
+    def set_fire(self, joy):
+        if joy.get_button(1) == 1 and not self.reloading:
+            self.shoot(joy.get_hat(0))
+            self.reloading = True
+            self.reload_time = pygame.time.get_ticks()
+        elif self.reloading:
+            if pygame.time.get_ticks() - self.reload_time >= self.reload_cooldown:
+                self.reloading = False

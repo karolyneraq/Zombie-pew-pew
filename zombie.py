@@ -3,8 +3,13 @@ from config import *
 
 
 class Zombie(pygame.sprite.Sprite):
-    def __init__(self, path, spawn_x_pos, spawn_y_pos, up, right, left, down):
-        super().__init__()
+    def __init__(self, zombie_name, spawn_x_pos, spawn_y_pos):
+        
+        # General setup
+        super().__init__(groups)
+        self.sprite_type = "zombie"
+
+        # Graphics setup
         self.sprites_down_s = []
         self.sprites_down_w = []
         self.sprites_up_s = []
@@ -13,33 +18,33 @@ class Zombie(pygame.sprite.Sprite):
         self.sprites_right_w = []
         self.sprites_left_s = []
         self.sprites_left_w = []
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static1.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static2.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static3.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static4.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static5.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking1.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking2.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking3.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking4.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static1.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static2.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static3.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static4.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static5.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking1.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking2.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking3.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking4.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static1.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static2.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static3.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static4.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static5.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking1.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking2.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking3.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking4.png"))
+        self.sprites_down_s.append(pygame.image.load("assets/Character_1/FRONT_STATIC/front_static1.png"))
+        self.sprites_down_s.append(pygame.image.load("assets/Character_1/FRONT_STATIC/front_static2.png"))
+        self.sprites_down_s.append(pygame.image.load("assets/Character_1/FRONT_STATIC/front_static3.png"))
+        self.sprites_down_s.append(pygame.image.load("assets/Character_1/FRONT_STATIC/front_static4.png"))
+        self.sprites_down_s.append(pygame.image.load("assets/Character_1/FRONT_STATIC/front_static5.png"))
+        self.sprites_down_w.append(pygame.image.load("assets/Character_1/FRONT_WALKING/front_walking1.png"))
+        self.sprites_down_w.append(pygame.image.load("assets/Character_1/FRONT_WALKING/front_walking2.png"))
+        self.sprites_down_w.append(pygame.image.load("assets/Character_1/FRONT_WALKING/front_walking3.png"))
+        self.sprites_down_w.append(pygame.image.load("assets/Character_1/FRONT_WALKING/front_walking4.png"))
+        self.sprites_up_s.append(pygame.image.load("assets/Character_1/BACK_STATIC/back_static1.png"))
+        self.sprites_up_s.append(pygame.image.load("assets/Character_1/BACK_STATIC/back_static2.png"))
+        self.sprites_up_s.append(pygame.image.load("assets/Character_1/BACK_STATIC/back_static3.png"))
+        self.sprites_up_s.append(pygame.image.load("assets/Character_1/BACK_STATIC/back_static4.png"))
+        self.sprites_up_s.append(pygame.image.load("assets/Character_1/BACK_STATIC/back_static5.png"))
+        self.sprites_up_w.append(pygame.image.load("assets/Character_1/BACK_WALKING/back_walking1.png"))
+        self.sprites_up_w.append(pygame.image.load("assets/Character_1/BACK_WALKING/back_walking2.png"))
+        self.sprites_up_w.append(pygame.image.load("assets/Character_1/BACK_WALKING/back_walking3.png"))
+        self.sprites_up_w.append(pygame.image.load("assets/Character_1/BACK_WALKING/back_walking4.png"))
+        self.sprites_right_s.append(pygame.image.load("assets/Character_1/SIDE_STATIC/side_static1.png"))
+        self.sprites_right_s.append(pygame.image.load("assets/Character_1/SIDE_STATIC/side_static2.png"))
+        self.sprites_right_s.append(pygame.image.load("assets/Character_1/SIDE_STATIC/side_static3.png"))
+        self.sprites_right_s.append(pygame.image.load("assets/Character_1/SIDE_STATIC/side_static4.png"))
+        self.sprites_right_s.append(pygame.image.load("assets/Character_1/SIDE_STATIC/side_static5.png"))
+        self.sprites_right_w.append(pygame.image.load("assets/Character_1/SIDE_WALKING/side_walking1.png"))
+        self.sprites_right_w.append(pygame.image.load("assets/Character_1/SIDE_WALKING/side_walking2.png"))
+        self.sprites_right_w.append(pygame.image.load("assets/Character_1/SIDE_WALKING/side_walking3.png"))
+        self.sprites_right_w.append(pygame.image.load("assets/Character_1/SIDE_WALKING/side_walking4.png"))
         self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[0], True, False))
         self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[1], True, False))
         self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[2], True, False))
@@ -49,6 +54,7 @@ class Zombie(pygame.sprite.Sprite):
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[1], True, False))
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[2], True, False))
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[3], True, False))
+        
         self.current_sprite = 0
         self.sprite_state = 2
         self.image = self.sprites_right_s[self.current_sprite]
@@ -166,6 +172,7 @@ class Zombie(pygame.sprite.Sprite):
         self.projectiles.remove(projectile)
 
     def set_lives(self, lives):
+        
         self.lives = lives
 
     def set_rect(self, rect):
@@ -201,37 +208,42 @@ class Zombie(pygame.sprite.Sprite):
                 self.image = self.sprites_down_s[int(self.current_sprite)]
 
     def move(self):
-        if self.get_up():
-            if self.current_y <= 0:
-                self.speed[1] *= -1
-                self.up = False
-                self.set_current_y(self.get_current_y() + self.get_speed()[1])
-                self.down = True
-            else:
-                self.set_current_y(self.get_current_y() + self.get_speed()[1])
 
-        if self.get_down():
-            if self.current_y >= 600:
-                self.speed[1] *= -1
-                self.down = False
-                self.set_current_y(self.get_current_y() + self.get_speed()[1])
-                self.up = True
-            else:
-                self.set_current_y(self.get_current_y() - self.get_speed()[1])
+        # Wall Collision
+        if self.rect.top <= 0 or self.rect.bottom >= 600:
+            self.speed[1] *= -1
+        self.current_y = self.current_y + self.speed[1]
 
-        if self.get_right():
-            if self.current_x >= 925:
-                self.speed[0] *= -1
-                self.right = False
-            else:
-                self.set_current_x(self.get_current_x() - self.get_speed()[0])
+        if self.left <= 0 or self.rect.right <=1100:
+            self.speed[0] *= -1
 
-        if self.get_left():
-            if self.current_x <= 175:
-                self.speed[0] *= -1
-                self.left = False
-            else:
-                self.set_current_x(self.get_current_x() + self.get_speed()[0])
 
-        self.set_rect(self.get_image().get_rect())
-        self.set_rect_topleft(self.get_current_x(), self.get_current_y())
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.current_x, self.current_y)
+
+    def move(self,speed):
+		if self.direction.magnitude() != 0:
+			self.direction = self.direction.normalize()
+
+		self.hitbox.x += self.direction.x * speed
+		self.collision('horizontal')
+		self.hitbox.y += self.direction.y * speed
+		self.collision('vertical')
+		self.rect.center = self.hitbox.center
+
+	def collision(self,direction):
+		if direction == 'horizontal':
+			for sprite in self.obstacle_sprites:
+				if sprite.hitbox.colliderect(self.hitbox):
+					if self.direction.x > 0: # moving right
+						self.hitbox.right = sprite.hitbox.left
+					if self.direction.x < 0: # moving left
+						self.hitbox.left = sprite.hitbox.right
+
+		if direction == 'vertical':
+			for sprite in self.obstacle_sprites:
+				if sprite.hitbox.colliderect(self.hitbox):
+					if self.direction.y > 0: # moving down
+						self.hitbox.bottom = sprite.hitbox.top
+					if self.direction.y < 0: # moving up
+						self.hitbox.top = sprite.hitbox.bottom
