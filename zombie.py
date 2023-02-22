@@ -205,8 +205,8 @@ class Zombie(pygame.sprite.Sprite):
             if self.current_y <= 0:
                 self.speed[1] *= -1
                 self.up = False
-                self.down = True
                 self.set_current_y(self.get_current_y() + self.get_speed()[1])
+                self.down = True
             else:
                 self.set_current_y(self.get_current_y() + self.get_speed()[1])
 
@@ -214,8 +214,8 @@ class Zombie(pygame.sprite.Sprite):
             if self.current_y >= 600:
                 self.speed[1] *= -1
                 self.down = False
-                self.up = True
                 self.set_current_y(self.get_current_y() + self.get_speed()[1])
+                self.up = True
             else:
                 self.set_current_y(self.get_current_y() - self.get_speed()[1])
 
