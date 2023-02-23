@@ -68,6 +68,9 @@ class Zombie(pygame.sprite.Sprite):
         self.reload_time = 0
         self.projectiles = []
         self.lives = 3
+        self.vision_radius = 150
+        self.attack_radius = 50
+        self.distance = 5
 
     def get_image(self):
         return self.image

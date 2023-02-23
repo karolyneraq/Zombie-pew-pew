@@ -13,5 +13,5 @@ purple = (148, 0, 211)
 red = (255, 0, 0)
 time_limit = 3000
 screen_size = (1100, 600)
-speed_x_balls = 4
-speed_y_balls = -4
+speed_x_bullets = 4
+speed_y_bullets = -4
