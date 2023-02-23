@@ -45,7 +45,7 @@ while loop:
     cow1.set_movement(pygame.joystick.Joystick(0))
     cow1.set_fire(pygame.joystick.Joystick(0))
 
-    # Moving the objects
+    # Moving objects
     cow1.move()
     zombie.move()
     for bullet in cow1.get_bullets():
