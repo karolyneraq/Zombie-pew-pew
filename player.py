@@ -71,6 +71,7 @@ class Player(pygame.sprite.Sprite):
         self.bullets = pygame.sprite.Group()
         self.health = 3
 
+
     def get_image(self):
         return self.image
 
