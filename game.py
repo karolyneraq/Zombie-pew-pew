@@ -2,6 +2,7 @@ import pygame
 from player import Player
 from config import *
 from zombie import Zombie
+from hall1 import Hall1
 
 pygame.init()
 pygame.joystick.init()
@@ -28,6 +29,9 @@ zombie = Zombie("assets/Character_1/", 325, 150, True, False, False, False)
 zombie_group = pygame.sprite.Group()
 zombie_group.add(zombie)
 
+# scenario 2
+scenario = Hall1()
+
 # background
 background1 = pygame.image.load("assets/background1.png")
 background2 = pygame.image.load("assets/background2.png")
@@ -42,11 +46,11 @@ while loop:
             loop = False
 
     # Movement Keys
-    cow1.set_movement(pygame.joystick.Joystick(0))
-    cow1.set_fire(pygame.joystick.Joystick(0))
+    #cow1.set_movement(pygame.joystick.Joystick(0))
+    #cow1.set_fire(pygame.joystick.Joystick(0))
 
     # Moving the objects
-    cow1.move()
+    #cow1.move()
     zombie.move()
     for bullet in cow1.get_bullets():
         bullet.move()
@@ -54,9 +58,10 @@ while loop:
     # Showing everything
     pygame.display.flip()
     screen.blit(background3, (175, 0))
+    scenario.draw_scenario()
     zombie_group.draw(screen)
     player_group.draw(screen)
-    cow1.get_bullets().draw(screen)
+    #cow1.get_bullets().draw(screen)
     zombie_group.update()
     player_group.update()
 
