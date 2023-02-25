@@ -3,6 +3,7 @@ from player import Player
 from config import *
 from zombie import Zombie
 import random
+from ui import UI
 
 pygame.init()
 pygame.joystick.init()
@@ -17,7 +18,7 @@ screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("Zombie Pew Pew")
 
 # font
-font = pygame.font.Font('assets/PressStart2P.ttf', 45)
+font = pygame.font.Font('assets/font/PressStart2P.ttf', 45)
 
 # players
 cow1 = Player("assets/Character_1/", 250, 300)
@@ -25,7 +26,7 @@ player_group = pygame.sprite.Group()
 player_group.add(cow1)
 
 # Zombie
-zombie = Zombie("assets/Character_1/", 325, 150, False, False, True, False)
+zombie = Zombie(325, 150, True, False, False, False)
 zombie_group = pygame.sprite.Group()
 zombie_group.add(zombie)
 
@@ -33,6 +34,11 @@ zombie_group.add(zombie)
 background1 = pygame.image.load("assets/background1.png")
 background2 = pygame.image.load("assets/background2.png")
 background3 = pygame.image.load("assets/background3.png")
+
+# User interface
+ui = UI()
+# ui_group = pygame.sprite.Group()
+# ui_group.add(ui)
 
 loop = True
 
@@ -52,9 +58,17 @@ while loop:
     for bullet in cow1.get_bullets():
         bullet.move()
 
+    
+
     # Showing everything
     pygame.display.flip()
     screen.blit(background3, (175, 0))
+    ui.draw_inventary()
+    health_rect_group.draw(screen)
+    bullet_group.draw(screen)
+    medic_kit__group.draw(screen)
+    key_group.draw(screen)
+
     zombie_group.draw(screen)
     player_group.draw(screen)
     cow1.get_bullets().draw(screen)

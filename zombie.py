@@ -3,10 +3,10 @@ from config import *
 
 
 class Zombie(pygame.sprite.Sprite):
-    def __init__(self, zombie_name, spawn_x_pos, spawn_y_pos):
+    def __init__(self, spawn_x_pos, spawn_y_pos, up, right, left, down):
         
         # General setup
-        super().__init__(groups)
+        super().__init__()
         self.sprite_type = "zombie"
 
         # Graphics setup
@@ -208,42 +208,39 @@ class Zombie(pygame.sprite.Sprite):
                 self.image = self.sprites_down_s[int(self.current_sprite)]
 
     def move(self):
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.current_x, self.current_y)
+
+        # self.hitbox.x += self.current_x * self.speed
+		# self.collision('horizontal')
+		# self.hitbox.y += self.current_y * self.speed
+		# self.collision('vertical')
+		# self.rect.center = self.hitbox.center
+
+    def collision(self):
 
         # Wall Collision
         if self.rect.top <= 0 or self.rect.bottom >= 600:
             self.speed[1] *= -1
-        self.current_y = self.current_y + self.speed[1]
+        self.current_y += self.speed[1]
 
         if self.left <= 0 or self.rect.right <=1100:
             self.speed[0] *= -1
+        self.current_x += self.speed[0]
 
+	# def collision(self,direction):
+	# 	if direction == 'horizontal':
+	# 		for sprite in self.obstacle_sprites:
+	# 			if sprite.hitbox.colliderect(self.hitbox):
+	# 				if self.direction.x > 0: # moving right
+	# 					self.hitbox.right = sprite.hitbox.left
+	# 				if self.direction.x < 0: # moving left
+	# 					self.hitbox.left = sprite.hitbox.right
 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (self.current_x, self.current_y)
-
-    def move(self,speed):
-		if self.direction.magnitude() != 0:
-			self.direction = self.direction.normalize()
-
-		self.hitbox.x += self.direction.x * speed
-		self.collision('horizontal')
-		self.hitbox.y += self.direction.y * speed
-		self.collision('vertical')
-		self.rect.center = self.hitbox.center
-
-	def collision(self,direction):
-		if direction == 'horizontal':
-			for sprite in self.obstacle_sprites:
-				if sprite.hitbox.colliderect(self.hitbox):
-					if self.direction.x > 0: # moving right
-						self.hitbox.right = sprite.hitbox.left
-					if self.direction.x < 0: # moving left
-						self.hitbox.left = sprite.hitbox.right
-
-		if direction == 'vertical':
-			for sprite in self.obstacle_sprites:
-				if sprite.hitbox.colliderect(self.hitbox):
-					if self.direction.y > 0: # moving down
-						self.hitbox.bottom = sprite.hitbox.top
-					if self.direction.y < 0: # moving up
-						self.hitbox.top = sprite.hitbox.bottom
+	# 	if direction == 'vertical':
+	# 		for sprite in self.obstacle_sprites:
+	# 			if sprite.hitbox.colliderect(self.hitbox):
+	# 				if self.direction.y > 0: # moving down
+	# 					self.hitbox.bottom = sprite.hitbox.top
+	# 				if self.direction.y < 0: # moving up
+	# 					self.hitbox.top = sprite.hitbox.bottom

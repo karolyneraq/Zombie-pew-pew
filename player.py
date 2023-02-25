@@ -69,7 +69,15 @@ class Player(pygame.sprite.Sprite):
         self.reload_cooldown = 500
         self.reload_time = 0
         self.bullets = pygame.sprite.Group()
-        self.lives = 3
+
+        # Stats
+        self.stats = {'health': 3, 'bullet': 5, 'medic_kit': 3, 'key': 2}
+        self.health = self.stats['health']
+        self.bullet = self.stats['bullet']
+        self.medic_kit = self.stats['medic_kit']
+        self.key = self.stats['key']
+        self.exp = 123
+
 
     def get_image(self):
         return self.image
@@ -113,8 +121,8 @@ class Player(pygame.sprite.Sprite):
     def get_bullets(self):
         return self.bullets
 
-    def get_lives(self):
-        return self.lives
+    def get_health(self):
+        return self.health
 
     def get_rect(self):
         return self.rect
@@ -164,8 +172,8 @@ class Player(pygame.sprite.Sprite):
     def remove_bullet(self, projectile):
         self.bullets.remove(projectile)
 
-    def set_lives(self, lives):
-        self.lives = lives
+    def set_health(self, health):
+        self.health = health
 
     def set_rect(self, rect):
         self.rect = rect
