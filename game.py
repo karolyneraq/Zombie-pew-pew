@@ -4,8 +4,8 @@ from config import *
 from zombie import Zombie
 from ui import UI
 from hall1 import Hall1
+from hall2 import Hall2
 import random
-
 
 
 pygame.init()
@@ -34,7 +34,10 @@ zombie_group = pygame.sprite.Group()
 zombie_group.add(zombie)
 
 # scenario 2
-scenario = Hall1()
+#scenario_2 = Hall1()
+
+# scenario 3
+scenario_3 = Hall2()
 
 # background
 background1 = pygame.image.load("assets/background1.png")
@@ -43,8 +46,6 @@ background3 = pygame.image.load("assets/background3.png")
 
 # User interface
 ui = UI()
-# ui_group = pygame.sprite.Group()
-# ui_group.add(ui)
 
 loop = True
 
@@ -55,7 +56,7 @@ while loop:
             loop = False
 
     # Movement Keys
-    #cow1.set_movement(pygame.joystick.Joystick(0))
+    cow1.set_movement(pygame.joystick.Joystick(0))
     cow1.set_fire(pygame.joystick.Joystick(0))
 
     # Moving the objects
@@ -67,10 +68,9 @@ while loop:
     # Showing everything
     pygame.display.flip()
     screen.blit(background3, (175, 0))
-    scenario.draw_scenario()
+    scenario_3.draw_scenario()
     ui.draw_inventory()
     ui.inventory_data()
-
     zombie_group.draw(screen)
     player_group.draw(screen)
     cow1.get_bullets().draw(screen)
