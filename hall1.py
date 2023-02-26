@@ -9,6 +9,7 @@ class Hall1:
     def __init__(self):
         self.scenario = pygame.sprite.Group()
         self.collide_sprites = pygame.sprite.Group()
+        self.stage_hazard = pygame.sprite.Group()
 
         self.surface = pygame.display.get_surface()
 
@@ -26,6 +27,7 @@ class Hall1:
         self.pipe_top_left_end = pygame.image.load("assets/pipe/pipe_safe/pipe_topleftend.png")
         self.pipe_top = pygame.image.load("assets/pipe/pipe_broken/pipe_top.png")
         self.pipe_top_right_end = pygame.image.load("assets/pipe/pipe_safe/pipe_toprightend.png")
+
         # Stretchers
         self.stretcher_horizontal1 = pygame.image.load("assets/stretcher/stretcher_horizontal1.png")
 
@@ -37,7 +39,6 @@ class Hall1:
 
         # Poison
         self.poison = Poison(550, 150, "top")
-
         self.add_elements()
 
     def draw_scenario(self):
@@ -48,6 +49,9 @@ class Hall1:
 
     def get_group(self):
         return self.collide_sprites
+
+    def get_stage_hazard(self):
+        return self.stage_hazard
 
     def add_elements(self):
         # Walls
@@ -115,5 +119,5 @@ class Hall1:
 
         # Poison
         self.scenario.add(self.poison)
-        self.collide_sprites.add(self.poison)
+        self.stage_hazard.add(self.poison)
 

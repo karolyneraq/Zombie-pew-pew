@@ -133,69 +133,10 @@ class Poison(pygame.sprite.Sprite):
             self.poison_smoke.append(pygame.image.load("assets/poison_smoke/poison_stage0/top/poison_stage1.png"))
             self.poison_smoke.append(pygame.image.load("assets/poison_smoke/poison_stage0/top/poison_stage2.png"))
             self.poison_smoke.append(pygame.image.load("assets/poison_smoke/poison_stage0/top/poison_stage3.png"))
-
             self.poison_smoke.append(
                 pygame.image.load("assets/poison_smoke/poison_stage1/top/start/poison_stage1start1.png"))
             self.poison_smoke.append(
                 pygame.image.load("assets/poison_smoke/poison_stage1/top/start/poison_stage1start2.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/start/poison_stage1start3.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/start/poison_stage1start4.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/start/poison_stage1start5.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/start/poison_stage1start6.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage1/top/static/poison_stage1static1.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage1/top/static/poison_stage1static2.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage1/top/static/poison_stage1static3.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage1/top/static/poison_stage1static4.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/end/poison_stage1end1.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/end/poison_stage1end2.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/end/poison_stage1end3.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/end/poison_stage1end4.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage1/top/end/poison_stage1end5.png"))
-
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/start/poison_stage2start1.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/start/poison_stage2start2.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/start/poison_stage2start3.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/start/poison_stage2start4.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/start/poison_stage2start5.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/start/poison_stage2start6.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/static/poison_stage2static1.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/static/poison_stage2static2.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/static/poison_stage2static3.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage2/up/static/poison_stage2static4.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage2/up/end/poison_stage2end1.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage2/up/end/poison_stage2end2.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage2/up/end/poison_stage2end3.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage2/up/end/poison_stage2end4.png"))
-            self.poison_smoke.append(
-                pygame.image.load("assets/poison_smoke/poison_stage2/up/end/poison_stage2end5.png"))
-
             self.poison_smoke.append(pygame.image.load(
                 "assets/poison_smoke/poison_stage3/top/start/poison_stage3start1.png"))
             self.poison_smoke.append(pygame.image.load(
@@ -216,13 +157,3 @@ class Poison(pygame.sprite.Sprite):
                 "assets/poison_smoke/poison_stage3/top/static/poison_stage3static3.png"))
             self.poison_smoke.append(pygame.image.load(
                 "assets/poison_smoke/poison_stage3/top/static/poison_stage3static4.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage3/top/end/poison_stage3end1.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage3/top/end/poison_stage3end2.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage3/top/end/poison_stage3end3.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage3/top/end/poison_stage3end4.png"))
-            self.poison_smoke.append(pygame.image.load(
-                "assets/poison_smoke/poison_stage3/top/end/poison_stage3end5.png"))

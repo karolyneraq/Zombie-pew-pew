@@ -1,5 +1,4 @@
-player_speed_x = 1.3
-player_speed_y = 1.3
+player_speed = 1.3
 zombie_speed_x = 2.0
 zombie_speed_y = 2.0
 black = (0, 0, 0)
@@ -13,5 +12,5 @@ purple = (148, 0, 211)
 red = (255, 0, 0)
 time_limit = 3000
 screen_size = (1100, 600)
-speed_x_balls = 2.3
-speed_y_balls = -2.3
+speed_x_balls = 5
+speed_y_balls = -5
