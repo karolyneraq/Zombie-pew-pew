@@ -2,12 +2,11 @@ time_limit = 3000
 screen_size = (1100, 600)
 
 # Player
-player_speed_x = 1.3
-player_speed_y = 1.3
+player_speed = 5
 
 # Projectile
-speed_x_bullets = 4
-speed_y_bullets = -4
+speed_x_balls = 5
+speed_y_balls = -5
 
 # Colors
 BLACK = (0, 0, 0)
@@ -43,8 +42,5 @@ KEY_TEXT_POS_1 = (87.5, 570)
 KEY_TEXT_POS_2 = (1012.5, 570)
 
 # Zombie
-zombie_data = {
-    'zombie': {'health': 100,'exp':100,'damage':20,'attack_type': 'roar', 'speed': 1, 'resistance': 2, 'attack_radius': 75, 'notice_radius': 375}}
-
 zombie_speed_x = 2.0
 zombie_speed_y = 2.0

@@ -1,10 +1,9 @@
 import pygame
 from projectile import Projectile
-from config import *
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, path, spawn_x_pos, spawn_y_pos):
+    def __init__(self, path, spawn):
         super().__init__()
         self.sprites_down_s = []
         self.sprites_down_w = []
@@ -14,33 +13,56 @@ class Player(pygame.sprite.Sprite):
         self.sprites_right_w = []
         self.sprites_left_s = []
         self.sprites_left_w = []
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static1.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static2.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static3.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static4.png"))
-        self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static5.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking1.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking2.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking3.png"))
-        self.sprites_down_w.append(pygame.image.load(path + "FRONT_WALKING/front_walking4.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static1.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static2.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static3.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static4.png"))
-        self.sprites_up_s.append(pygame.image.load(path + "BACK_STATIC/back_static5.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking1.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking2.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking3.png"))
-        self.sprites_up_w.append(pygame.image.load(path + "BACK_WALKING/back_walking4.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static1.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static2.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static3.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static4.png"))
-        self.sprites_right_s.append(pygame.image.load(path + "SIDE_STATIC/side_static5.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking1.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking2.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking3.png"))
-        self.sprites_right_w.append(pygame.image.load(path + "SIDE_WALKING/side_walking4.png"))
+
+        self.sprites_down_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/front/static_front1.png"), (60, 60)))
+        self.sprites_down_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/front/static_front2.png"), (60, 60)))
+        self.sprites_down_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/front/static_front3.png"), (60, 60)))
+        self.sprites_down_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/front/static_front4.png"), (60, 60)))
+        self.sprites_down_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/front/static_front5.png"), (60, 60)))
+        self.sprites_down_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/front/walking_front1.png"), (60, 60)))
+        self.sprites_down_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/front/walking_front2.png"), (60, 60)))
+        self.sprites_down_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/front/walking_front3.png"), (60, 60)))
+        self.sprites_down_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/front/walking_front4.png"), (60, 60)))
+        self.sprites_up_s.append(pygame.transform.scale(pygame.image.load(path + "static/back/back1.png"), (60, 60)))
+        self.sprites_up_s.append(pygame.transform.scale(pygame.image.load(path + "static/back/back2.png"), (60, 60)))
+        self.sprites_up_s.append(pygame.transform.scale(pygame.image.load(path + "static/back/back3.png"), (60, 60)))
+        self.sprites_up_s.append(pygame.transform.scale(pygame.image.load(path + "static/back/back4.png"), (60, 60)))
+        self.sprites_up_s.append(pygame.transform.scale(pygame.image.load(path + "static/back/back5.png"), (60, 60)))
+        self.sprites_up_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/back/walking_back1.png"), (60, 60)))
+        self.sprites_up_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/back/walking_back2.png"), (60, 60)))
+        self.sprites_up_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/back/walking_back3.png"), (60, 60)))
+        self.sprites_up_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/back/walking_back4.png"), (60, 60)))
+        self.sprites_right_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/right/static_right1.png"), (60, 60)))
+        self.sprites_right_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/right/static_right2.png"), (60, 60)))
+        self.sprites_right_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/right/static_right3.png"), (60, 60)))
+        self.sprites_right_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/right/static_right4.png"), (60, 60)))
+        self.sprites_right_s.append(pygame.transform.scale(pygame.image.load(
+            path + "static/right/static_right5.png"), (60, 60)))
+        self.sprites_right_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/right/walking_right1.png"), (60, 60)))
+        self.sprites_right_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/right/walking_right2.png"), (60, 60)))
+        self.sprites_right_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/right/walking_right3.png"), (60, 60)))
+        self.sprites_right_w.append(pygame.transform.scale(pygame.image.load(
+            path + "walk/right/walking_right4.png"), (60, 60)))
         self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[0], True, False))
         self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[1], True, False))
         self.sprites_left_s.append(pygame.transform.flip(self.sprites_right_s[2], True, False))
@@ -50,34 +72,26 @@ class Player(pygame.sprite.Sprite):
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[1], True, False))
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[2], True, False))
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[3], True, False))
+
         self.current_sprite = 0
         self.sprite_state = 2
         self.image = self.sprites_right_s[self.current_sprite]
-        self.spawn_x = spawn_x_pos
-        self.spawn_y = spawn_y_pos
-        self.current_x = spawn_x_pos
-        self.current_y = spawn_y_pos
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (self.current_x, self.current_y)
-        self.up = False
-        self.right = False
-        self.left = False
-        self.down = False
-        self.speed = pygame.math.Vector2((player_speed_x, player_speed_y))
+        self.spawn_x = spawn[0]
+        self.spawn_y = spawn[1]
+        self.current_x = spawn[0]
+        self.current_y = spawn[1]
+        self.rect = self.image.get_rect(topleft=spawn)
+        self.moving_x = False
+        self.moving_y = False
+        self.direction = pygame.math.Vector2()
+        self.speed = 2.5
         self.fire = False
         self.reloading = False
         self.reload_cooldown = 500
         self.reload_time = 0
         self.bullets = pygame.sprite.Group()
-        
-        # Stats
-        self.stats = {'health': 3, 'bullet': 5, 'medic_kit': 3, 'key': 2}
-        self.health = self.stats['health']
-        self.bullet = self.stats['bullet']
-        self.medic_kit = self.stats['medic_kit']
-        self.key = self.stats['key']
-        self.exp = 123
-
+        self.health = 3
+        self.obstacles = pygame.sprite.Group()
 
     def get_image(self):
         return self.image
@@ -94,20 +108,8 @@ class Player(pygame.sprite.Sprite):
     def get_current_y(self):
         return self.current_y
 
-    def get_up(self):
-        return self.up
-
-    def get_right(self):
-        return self.right
-
-    def get_left(self):
-        return self.left
-
-    def get_down(self):
-        return self.down
-
     def get_speed(self):
-        return self.speed
+        return self.direction
 
     def get_fire(self):
         return self.fire
@@ -142,23 +144,11 @@ class Player(pygame.sprite.Sprite):
     def set_current_y(self, current_y):
         self.current_y = current_y
 
-    def set_up(self, up):
-        self.up = up
-
-    def set_right(self, right):
-        self.right = right
-
-    def set_left(self, left):
-        self.left = left
-
-    def set_down(self, down):
-        self.down = down
-
     def set_speed(self, speed):
-        self.speed = speed
+        self.direction = speed
 
     def reset_speed(self):
-        self.speed = pygame.math.Vector2((player_speed_x, player_speed_y))
+        self.direction = pygame.math.Vector2()
 
     def set_reloading(self, reloading):
         self.reloading = reloading
@@ -181,9 +171,69 @@ class Player(pygame.sprite.Sprite):
     def set_rect_topleft(self, x, y):
         self.rect.topleft = (x, y)
 
+    def set_obstacles(self, obstacles):
+        self.obstacles = obstacles
+
+    def set_movement(self, joy):
+        if joy.get_hat(0)[1] == 1:
+            self.direction.y = -1
+            self.sprite_state = 1
+            self.moving_y = True
+        elif joy.get_hat(0)[1] == -1:
+            self.direction.y = 1
+            self.sprite_state = 4
+            self.moving_y = True
+        else:
+            self.direction.y = 0
+            self.moving_y = False
+
+        if joy.get_hat(0)[0] == 1:
+            self.direction.x = 1
+            self.sprite_state = 2
+            self.moving_x = True
+        elif joy.get_hat(0)[0] == -1:
+            self.moving_x = True
+            self.direction.x = -1
+            self.sprite_state = 3
+        else:
+            self.direction.x = 0
+            self.moving_x = False
+
+    def collision(self, orient):
+        if orient == 0:
+            for sprite in self.obstacles:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.x > 0:  # Going right
+                        self.rect.right = sprite.rect.left
+                    if self.direction.x < 0:  # Going left
+                        self.rect.left = sprite.rect.right
+
+        if orient == 1:
+            for sprite in self.obstacles:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.y > 0:  # Going down
+                        self.rect.bottom = sprite.rect.top
+                    if self.direction.y < 0:  # Going up
+                        self.rect.top = sprite.rect.bottom
+
+    def move(self, speed):
+        if self.direction.magnitude() != 0:
+            self.direction = self.direction.normalize()
+
+        self.rect.x = self.rect.x + self.direction.x * speed
+        self.current_x = self.rect.x
+
+        self.collision(0)
+
+        self.rect.y = self.rect.y + self.direction.y * speed
+        self.current_y = self.rect.y
+
+        self.collision(1)
+
     def update(self):
+        self.move(self.speed)
         self.current_sprite += 0.1
-        if self.up or self.down or self.right or self.left:
+        if self.moving_x or self.moving_y:
             if self.current_sprite >= 4:
                 self.current_sprite = 0
             if self.sprite_state == 1:
@@ -207,105 +257,30 @@ class Player(pygame.sprite.Sprite):
             elif self.sprite_state == 4:
                 self.image = self.sprites_down_s[int(self.current_sprite)]
 
-    def set_movement(self, joy):
-        if joy.get_hat(0) == (0, 1):
-            self.set_up(True)
-            self.set_down(False)
-            self.set_right(False)
-            self.set_left(False)
-            self.sprite_state = 1
-        elif joy.get_hat(0) == (1, 1):
-            self.set_up(True)
-            self.set_right(True)
-            self.set_down(False)
-            self.set_left(False)
-            self.sprite_state = 2
-        elif joy.get_hat(0) == (-1, 1):
-            self.set_up(True)
-            self.set_left(True)
-            self.set_down(False)
-            self.set_right(False)
-            self.sprite_state = 3
-        elif joy.get_hat(0) == (0, -1):
-            self.set_down(True)
-            self.set_up(False)
-            self.set_right(False)
-            self.set_left(False)
-            self.sprite_state = 4
-        elif joy.get_hat(0) == (1, -1):
-            self.set_down(True)
-            self.set_right(True)
-            self.set_up(False)
-            self.set_left(False)
-            self.sprite_state = 2
-        elif joy.get_hat(0) == (-1, -1):
-            self.set_down(True)
-            self.set_left(True)
-            self.set_right(False)
-            self.set_up(False)
-            self.sprite_state = 3
-        elif joy.get_hat(0) == (1, 0):
-            self.set_right(True)
-            self.set_up(False)
-            self.set_down(False)
-            self.set_left(False)
-            self.sprite_state = 2
-        elif joy.get_hat(0) == (-1, 0):
-            self.set_left(True)
-            self.set_up(False)
-            self.set_down(False)
-            self.set_right(False)
-            self.sprite_state = 3
-        elif joy.get_hat(0) == (0, 0):
-            self.set_up(False)
-            self.set_down(False)
-            self.set_right(False)
-            self.set_left(False)
-
-    def move(self):
-        if self.up:
-            if self.speed[1] > 0:
-                self.speed[1] *= -1
-            self.current_y = self.current_y + self.speed[1]
-
-        if self.down:
-            if self.speed[1] < 0:
-                self.speed[1] *= -1
-            self.current_y = self.current_y + self.speed[1]
-
-        if self.right:
-            if self.speed[0] < 0:
-                self.speed[0] *= -1
-            self.current_x = self.current_x + self.speed[0]
-
-        if self.left:
-            if self.speed[0] > 0:
-                self.speed[0] *= -1
-            self.current_x = self.current_x + self.speed[0]
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (self.current_x, self.current_y)
-
     def shoot(self, direction):
         if self.sprite_state == 2:
             if direction == (0, 0):
                 direction = (1, 0)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midright[0], self.rect.midright[1])
+            bullet.set_obstacles(self.obstacles)
             self.bullets.add(bullet)
         elif self.sprite_state == 1:
             if direction == (0, 0):
                 direction = (0, 1)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midtop[0], self.rect.midtop[1])
+            bullet.set_obstacles(self.obstacles)
             self.bullets.add(bullet)
         elif self.sprite_state == 3:
             if direction == (0, 0):
                 direction = (-1, 0)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midleft[0], self.rect.midleft[1])
+            bullet.set_obstacles(self.obstacles)
             self.bullets.add(bullet)
         elif self.sprite_state == 4:
             if direction == (0, 0):
                 direction = (0, -1)
             bullet = Projectile("assets/bullet.png", direction, self.rect.midbottom[0], self.rect.midbottom[1])
+            bullet.set_obstacles(self.obstacles)
             self.bullets.add(bullet)
 
     def set_fire(self, joy):

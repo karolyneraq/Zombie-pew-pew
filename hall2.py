@@ -63,6 +63,9 @@ class Hall2:
     def get_group_scenario(self):
         return self.scenario
 
+    def get_obstacle(self):
+        return self.obstacle
+
     def add_elements(self):
 
         # Floor

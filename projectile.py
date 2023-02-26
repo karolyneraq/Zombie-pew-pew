@@ -12,6 +12,8 @@ class Projectile(pygame.sprite.Sprite):
         self.current_y = player_y
         self.rect = self.image.get_rect()
         self.rect.center = (self.current_x, self.current_y)
+        self.direction = pygame.math.Vector2()
+        self.obstacles = pygame.sprite.Group()
 
     def get_image(self):
         return self.image
@@ -55,7 +57,30 @@ class Projectile(pygame.sprite.Sprite):
     def set_rect_center(self, center):
         self.rect.center = center
 
+    def set_obstacles(self, obstacles):
+        self.obstacles = obstacles
+
+    def collision(self, orient):
+        if orient == 0:
+            for sprite in self.obstacles:
+                if sprite.rect.colliderect(self.rect) or self.rect.x >= 920:
+                    self.kill()
+
+        if orient == 1:
+            for sprite in self.obstacles:
+                if sprite.rect.colliderect(self.rect) or self.rect.y >= 600:
+                    self.kill()
+
     def move(self):
+        if self.direction.magnitude() != 0:
+            self.direction = self.direction.normalize()
+
         self.current_x += self.speed_x
+        self.rect.x = self.current_x
+
+        self.collision(0)
+
         self.current_y += self.speed_y
-        self.set_rect_center((self.current_x, self.current_y))
+        self.rect.y = self.current_y
+
+        self.collision(1)
