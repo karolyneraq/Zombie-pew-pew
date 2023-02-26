@@ -8,10 +8,12 @@ class UI:
 
         # General
         self.display_surface = pygame.display.get_surface()
-        #self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
+        self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
         self.inventory = pygame.sprite.Group()
 
         # Inventory
+        self.hud_fill = pygame.image.load('assets/UI/hud_fill.png')
+
         self.player_1_icon = pygame.image.load('assets/UI/character_1_icon.png')
         self.health_1 = pygame.image.load('assets/UI/heart_full.png')
         self.bullet_1 = pygame.image.load('assets/UI/gun.png')
@@ -27,12 +29,17 @@ class UI:
         self.add_inventory()
 
     def draw_inventory(self):
+        self.display_surface.blit(self.hud_fill, (0, 0))
         self.inventory.draw(self.display_surface)
 
     def get_group(self):
         return self.inventory
 
     def add_inventory(self):
+
+        # Fill
+        Element((0, 0), [self.inventory], self.hud_fill)
+        Element((925, 0), [self.inventory], self.hud_fill)
 
         # Player 1
         Element((ICON_WIDTH, ICON_HEIGHT), [self.inventory], self.player_1_icon)
@@ -61,47 +68,44 @@ class UI:
         medic_kit_2 = 1
         key_2 = 2
 
-        # Font
-        font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
-
         # Player 1
-        health_text_1 = font.render(f'[{health_1}]', True, WHITE, BLACK)
+        health_text_1 = self.font.render(f'[{health_1}]', True, WHITE, BLACK)
         health_text_rect_1 = health_text_1.get_rect()
         health_text_rect_1.center = HEALTH_TEXT_POS_1
         self.display_surface.blit(health_text_1, health_text_rect_1)
 
-        bullet_text_1 = font.render(f'[{bullet_1}]', True, WHITE, BLACK)
+        bullet_text_1 = self.font.render(f'[{bullet_1}]', True, WHITE, BLACK)
         bullet_text_rect_1 = bullet_text_1.get_rect()
         bullet_text_rect_1.center = BULLET_TEXT_POS_1
         self.display_surface.blit(bullet_text_1, bullet_text_rect_1)
 
-        medic_kit_text_1 = font.render(f'[{medic_kit_1}]', True, WHITE, BLACK)
+        medic_kit_text_1 = self.font.render(f'[{medic_kit_1}]', True, WHITE, BLACK)
         medic_kit_text_rect_1 = medic_kit_text_1.get_rect()
         medic_kit_text_rect_1.center = MEDIC_KIT_TEXT_POS_1
         self.display_surface.blit(medic_kit_text_1, medic_kit_text_rect_1)
 
-        key_text_1 = font.render(f'[{key_1}]', True, WHITE, BLACK)
+        key_text_1 = self.font.render(f'[{key_1}]', True, WHITE, BLACK)
         key_text_rect_1 = key_text_1.get_rect()
         key_text_rect_1.center = KEY_TEXT_POS_1
         self.display_surface.blit(key_text_1, key_text_rect_1)
 
         # Player 2
-        health_text_2 = font.render(f'[{health_2}]', True, WHITE, BLACK)
+        health_text_2 = self.font.render(f'[{health_2}]', True, WHITE, BLACK)
         health_text_rect_2 = health_text_2.get_rect()
         health_text_rect_2.center = HEALTH_TEXT_POS_2
         self.display_surface.blit(health_text_2, health_text_rect_2)
 
-        bullet_text_2 = font.render(f'[{bullet_2}]', True, WHITE, BLACK)
+        bullet_text_2 = self.font.render(f'[{bullet_2}]', True, WHITE, BLACK)
         bullet_text_rect_2 = bullet_text_2.get_rect()
         bullet_text_rect_2.center = BULLET_TEXT_POS_2
         self.display_surface.blit(bullet_text_2, bullet_text_rect_2)
 
-        medic_kit_text_2 = font.render(f'[{medic_kit_2}]', True, WHITE, BLACK)
+        medic_kit_text_2 = self.font.render(f'[{medic_kit_2}]', True, WHITE, BLACK)
         medic_kit_text_rect_2 = medic_kit_text_2.get_rect()
         medic_kit_text_rect_2.center = MEDIC_KIT_TEXT_POS_2
         self.display_surface.blit(medic_kit_text_2, medic_kit_text_rect_2)
 
-        key_text_2 = font.render(f'[{key_2}]', True, WHITE, BLACK)
+        key_text_2 = self.font.render(f'[{key_2}]', True, WHITE, BLACK)
         key_text_rect_2 = key_text_2.get_rect()
         key_text_rect_2.center = KEY_TEXT_POS_2
         self.display_surface.blit(key_text_2, key_text_rect_2)
