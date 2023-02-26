@@ -26,7 +26,7 @@ player_group = pygame.sprite.Group()
 player_group.add(cow1)
 
 # Zombie
-zombie = Zombie("assets/Character_1/", 325, 150, True, False, False, False)
+zombie = Zombie("assets/zombie/", (650, 150), True, False, False, False)
 zombie_group = pygame.sprite.Group()
 zombie_group.add(zombie)
 
@@ -57,8 +57,6 @@ while loop:
     cow1.set_fire(pygame.joystick.Joystick(0))
 
     # Moving the objects
-    zombie.move()
-
     for bullet in cow1.get_bullets():
         bullet.move()
 
@@ -69,9 +67,15 @@ while loop:
     if choice_scenario == 1:
         scenario1.draw_scenario()
         cow1.set_obstacles(obstacles1)
+        cow1.set_zombies(zombie_group)
+        for monstro in zombie_group:
+            monstro.set_obstacles(obstacles1)
     else:
         scenario2.draw_scenario()
         cow1.set_obstacles(obstacles2)
+        cow1.set_zombies(zombie_group)
+        for monstro in zombie_group:
+            monstro.set_obstacles(obstacles2)
 
     zombie_group.draw(screen)
     player_group.draw(screen)
