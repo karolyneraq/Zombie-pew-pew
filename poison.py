@@ -9,6 +9,9 @@ class Poison(pygame.sprite.Sprite):
         self.poison_smoke = []
         self.is_animating = False
 
+        self.current_x = pos_x
+        self.current_y = pos_y
+
         self.direction(direction)
 
         self.current_sprites = 0
@@ -37,6 +40,9 @@ class Poison(pygame.sprite.Sprite):
             else:
                 self.current_sprites += self.animation_speed
                 self.image = self.poison_smoke[int(self.current_sprites)]
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.current_x, self.current_y)
 
     def direction(self, direction):
         if direction == "left":

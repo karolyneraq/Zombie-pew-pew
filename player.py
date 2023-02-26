@@ -14,6 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.sprites_right_w = []
         self.sprites_left_s = []
         self.sprites_left_w = []
+
         self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static1.png"))
         self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static2.png"))
         self.sprites_down_s.append(pygame.image.load(path + "FRONT_STATIC/front_static3.png"))
@@ -69,7 +70,7 @@ class Player(pygame.sprite.Sprite):
         self.reload_cooldown = 500
         self.reload_time = 0
         self.bullets = pygame.sprite.Group()
-        self.lives = 3
+        self.health = 3
 
     def get_image(self):
         return self.image
@@ -113,8 +114,8 @@ class Player(pygame.sprite.Sprite):
     def get_bullets(self):
         return self.bullets
 
-    def get_lives(self):
-        return self.lives
+    def get_health(self):
+        return self.health
 
     def get_rect(self):
         return self.rect
@@ -164,8 +165,8 @@ class Player(pygame.sprite.Sprite):
     def remove_bullet(self, projectile):
         self.bullets.remove(projectile)
 
-    def set_lives(self, lives):
-        self.lives = lives
+    def set_health(self, health):
+        self.health = health
 
     def set_rect(self, rect):
         self.rect = rect
@@ -308,3 +309,31 @@ class Player(pygame.sprite.Sprite):
         elif self.reloading:
             if pygame.time.get_ticks() - self.reload_time >= self.reload_cooldown:
                 self.reloading = False
+
+    def collision(self, obstacle_sprites):
+        for sprite in obstacle_sprites:
+            if sprite.rect.colliderect(self.rect):
+
+                if self.right:
+                    self.rect.right = sprite.rect.left
+                    if self.speed[0] > 0:
+                        self.speed[0] *= -1
+                    self.current_x = self.current_x + self.speed[0]
+
+                if self.left:
+                    self.rect.left = sprite.rect.right
+                    if self.speed[0] < 0:
+                        self.speed[0] *= -1
+                    self.current_x = self.current_x + self.speed[0]
+
+                if self.up:
+                    self.rect.top = sprite.rect.bottom
+                    if self.speed[1] < 0:
+                        self.speed[1] *= -1
+                    self.current_y = self.current_y + self.speed[1]
+
+                if self.down:
+                    self.rect.bottom = sprite.rect.top
+                    if self.speed[1] > 0:
+                        self.speed[1] *= -1
+                    self.current_y = self.current_y + self.speed[1]
