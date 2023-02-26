@@ -8,6 +8,7 @@ from element import Element
 class Hall2:
     def __init__(self):
         self.scenario = pygame.sprite.Group()
+        self.stage_hazard = pygame.sprite.Group()
         self.obstacle = pygame.sprite.Group()
         self.decour = pygame.sprite.Group()
         self.surface = pygame.display.get_surface()
@@ -43,11 +44,18 @@ class Hall2:
 
     def draw_scenario(self):
         self.scenario.draw(self.surface)
+        self.stage_hazard.draw(self.surface)
         self.obstacle.draw(self.surface)
         self.decour.draw(self.surface)
         # Poison
         self.poison.animate()
         self.poison.update()
+
+    def get_group_stage_hazard(self):
+        return self.stage_hazard
+
+    def get_group_obstacle(self):
+        return self.obstacle
 
     def get_group_decour(self):
         return self.decour
@@ -126,4 +134,4 @@ class Hall2:
         Element((550, 75), [self.obstacle], self.stretcher_horizontal2)
 
         # Poison
-        self.obstacle.add(self.poison)
+        self.stage_hazard.add(self.poison)

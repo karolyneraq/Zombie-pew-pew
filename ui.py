@@ -13,6 +13,8 @@ class UI:
 
         # Inventory
         self.hud_fill = pygame.image.load('assets/UI/hud_fill.png')
+        
+        self.heart_empty = pygame.image.load('assets/UI/heart_empty.png')
 
         self.player_1_icon = pygame.image.load('assets/UI/character_1_icon.png')
         self.health_1 = pygame.image.load('assets/UI/heart_full.png')
@@ -28,6 +30,16 @@ class UI:
 
         self.add_inventory()
 
+        self.health_1 = 3
+        self.bullet_1 = 12
+        self.medic_kit_1 = 1
+        self.key_1 = 2
+
+        self.health_2 = 3
+        self.bullet_2 = 12
+        self.medic_kit_2 = 1
+        self.key_2 = 2
+
     def draw_inventory(self):
         self.display_surface.blit(self.hud_fill, (0, 0))
         self.inventory.draw(self.display_surface)
@@ -40,6 +52,8 @@ class UI:
         # Fill
         Element((0, 0), [self.inventory], self.hud_fill)
         Element((925, 0), [self.inventory], self.hud_fill)
+
+        #Element(())
 
         # Player 1
         Element((ICON_WIDTH, ICON_HEIGHT), [self.inventory], self.player_1_icon)
