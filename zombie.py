@@ -208,8 +208,16 @@ class Zombie(pygame.sprite.Sprite):
                 self.image = self.sprites_down_s[int(self.current_sprite)]
 
     def move(self):
+        if self.rect.top <= 0 or self.rect.bottom >= 600:
+            self.speed[1] *= -1
+        self.current_y = self.current_y + self.speed[1]
+
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.current_x, self.current_y)
+
+    # def move(self):
+    #     self.rect = self.image.get_rect()
+    #     self.rect.topleft = (self.current_x, self.current_y)
 
         # self.hitbox.x += self.current_x * self.speed
 		# self.collision('horizontal')
@@ -217,16 +225,16 @@ class Zombie(pygame.sprite.Sprite):
 		# self.collision('vertical')
 		# self.rect.center = self.hitbox.center
 
-    def collision(self):
+    # def collision(self):
 
-        # Wall Collision
-        if self.rect.top <= 0 or self.rect.bottom >= 600:
-            self.speed[1] *= -1
-        self.current_y += self.speed[1]
+    #     # Wall Collision
+    #     if self.rect.top <= 0 or self.rect.bottom >= 600:
+    #         self.speed[1] *= -1
+    #     self.current_y += self.speed[1]
 
-        if self.left <= 0 or self.rect.right <=1100:
-            self.speed[0] *= -1
-        self.current_x += self.speed[0]
+    #     if self.left <= 0 or self.rect.right <=1100:
+    #         self.speed[0] *= -1
+    #     self.current_x += self.speed[0]
 
 	# def collision(self,direction):
 	# 	if direction == 'horizontal':

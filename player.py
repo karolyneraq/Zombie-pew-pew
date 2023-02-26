@@ -69,7 +69,7 @@ class Player(pygame.sprite.Sprite):
         self.reload_cooldown = 500
         self.reload_time = 0
         self.bullets = pygame.sprite.Group()
-
+        
         # Stats
         self.stats = {'health': 3, 'bullet': 5, 'medic_kit': 3, 'key': 2}
         self.health = self.stats['health']
