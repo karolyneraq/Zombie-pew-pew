@@ -2,6 +2,8 @@ import pygame
 from player import Player
 from config import *
 from zombie import Zombie
+from hall1 import Hall1
+from room1 import Room1
 
 pygame.init()
 pygame.joystick.init()
@@ -19,7 +21,7 @@ pygame.display.set_caption("Zombie Pew Pew")
 font = pygame.font.Font('assets/PressStart2P.ttf', 45)
 
 # players
-cow1 = Player("assets/Character_1/", 250, 300)
+cow1 = Player("assets/char_1red/", (325, 300))
 player_group = pygame.sprite.Group()
 player_group.add(cow1)
 
@@ -27,6 +29,15 @@ player_group.add(cow1)
 zombie = Zombie("assets/Character_1/", 325, 150, True, False, False, False)
 zombie_group = pygame.sprite.Group()
 zombie_group.add(zombie)
+
+# scenarios
+choice_scenario = 2
+scenario1 = Room1()
+scenario2 = Hall1()
+
+# collision
+obstacles1 = scenario1.get_group()
+obstacles2 = scenario2.get_group()
 
 # background
 background1 = pygame.image.load("assets/background1.png")
@@ -45,18 +56,27 @@ while loop:
     cow1.set_movement(pygame.joystick.Joystick(0))
     cow1.set_fire(pygame.joystick.Joystick(0))
 
-    # Moving objects
-    cow1.move()
+    # Moving the objects
     zombie.move()
+
     for bullet in cow1.get_bullets():
         bullet.move()
 
     # Showing everything
     pygame.display.flip()
     screen.blit(background3, (175, 0))
+
+    if choice_scenario == 1:
+        scenario1.draw_scenario()
+        cow1.set_obstacles(obstacles1)
+    else:
+        scenario2.draw_scenario()
+        cow1.set_obstacles(obstacles2)
+
     zombie_group.draw(screen)
     player_group.draw(screen)
     cow1.get_bullets().draw(screen)
+
     zombie_group.update()
     player_group.update()
 

@@ -6,8 +6,8 @@ class Projectile(pygame.sprite.Sprite):
     def __init__(self, path, player_dir, player_x, player_y):
         super().__init__()
         self.image = pygame.image.load(path)
-        self.speed_x = speed_x_bullets * player_dir[0]
-        self.speed_y = speed_y_bullets * player_dir[1]
+        self.speed_x = speed_x_balls * player_dir[0]
+        self.speed_y = speed_y_balls * player_dir[1]
         self.current_x = player_x
         self.current_y = player_y
         self.rect = self.image.get_rect()
