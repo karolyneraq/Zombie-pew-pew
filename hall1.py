@@ -20,7 +20,7 @@ class Hall1:
         self.wall_door_top1 = pygame.image.load("assets/wall/wall_doortop1.png")
         self.wall_door_top2 = pygame.image.load("assets/wall/wall_doortop2.png")
         self.wall_corner_real = pygame.image.load("assets/wall/wall_cornerreal.png")
-        self.wall_window2 = pygame.image.load("assets/decour/wall/wall_window2.png")
+        self.wall_window_1 = pygame.image.load("assets/decour/wall/wall_window.png")
         self.wall_window = pygame.image.load("assets/decour/wall/wall_window.png")
 
         # Pipes
@@ -58,12 +58,14 @@ class Hall1:
         # Upper Walls
         wall_top_inverted = pygame.transform.rotate(self.wall_top, 180)
 
+        # Window
+        wall_window_1_rotated = pygame.transform.flip(self.wall_window_1, True, False)
+
         for x in range(250, 851, 75):
-            # Window
-            if x == 325:
-                wall_window2_rotated = pygame.transform.rotate(self.wall_window2, 180)
-                # Element((x, 0), [self.scenario], wall_window2_rotated)
-                Element((x, 0), [self.scenario, self.collide_sprites], self.wall_window2)
+            if x == 775:
+                Element((775, 0), [self.scenario], self.wall_window_1)
+            elif x == 700:
+                Element((700, 0), [self.scenario], wall_window_1_rotated)
             else:
                 Element((x, 0), [self.scenario, self.collide_sprites], wall_top_inverted)
 

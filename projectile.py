@@ -3,7 +3,7 @@ from config import *
 
 
 class Projectile(pygame.sprite.Sprite):
-    def __init__(self, path, player_dir, player_x, player_y):
+    def __init__(self, path, player_dir, player_x, player_y, obstacles):
         super().__init__()
         self.image = pygame.image.load(path)
         self.speed_x = speed_x_balls * player_dir[0]
@@ -13,7 +13,7 @@ class Projectile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.current_x, self.current_y)
         self.direction = pygame.math.Vector2()
-        self.obstacles = pygame.sprite.Group()
+        self.obstacles = obstacles
 
     def get_image(self):
         return self.image

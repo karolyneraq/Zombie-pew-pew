@@ -9,6 +9,7 @@ class Hall2:
     def __init__(self):
         self.scenario = pygame.sprite.Group()
         self.obstacle = pygame.sprite.Group()
+        self.stage_hazard = pygame.sprite.Group()
 
         self.decour = pygame.sprite.Group()
         self.surface = pygame.display.get_surface()
@@ -57,6 +58,9 @@ class Hall2:
 
     def get_obstacle(self):
         return self.obstacle
+
+    def get_stage_hazard(self):
+        return self.stage_hazard
 
     def add_elements(self):
 
@@ -135,4 +139,4 @@ class Hall2:
 
         # Poison
         self.scenario.add(self.poison)
-        self.obstacle.add(self.poison)
+        self.stage_hazard.add(self.poison)
