@@ -1,3 +1,5 @@
+from math import sin
+
 import pygame
 from config import *
 
@@ -59,9 +61,12 @@ class Zombie(pygame.sprite.Sprite):
         self.speed_y = 1
         self.fire = False
         self.reloading = False
+        self.vulnerable = True
+        self.vulnerable_time = 0
+        self.vulnerable_cooldown = 700
         self.reload_time = 0
         self.projectiles = []
-        self.lives = 3
+        self.health = 2
         self.obstacles = None
 
     def get_image(self):
@@ -97,8 +102,8 @@ class Zombie(pygame.sprite.Sprite):
     def get_projectiles(self):
         return self.projectiles
 
-    def get_lives(self):
-        return self.lives
+    def get_health(self):
+        return self.health
 
     def get_rect(self):
         return self.rect
@@ -143,9 +148,6 @@ class Zombie(pygame.sprite.Sprite):
     def remove_projectile(self, projectile):
         self.projectiles.remove(projectile)
 
-    def set_lives(self, lives):
-        self.lives = lives
-
     def set_rect(self, rect):
         self.rect = rect
 
@@ -155,9 +157,27 @@ class Zombie(pygame.sprite.Sprite):
     def set_obstacles(self, obstacles):
         self.obstacles = obstacles
 
+    def set_projectiles(self, projectiles):
+        self.projectiles = projectiles
+
+    def damaged(self):
+        self.vulnerable = False
+        self.vulnerable_time = pygame.time.get_ticks()
+        self.health -= 1
+
+    def wave_value(self):
+        value = sin(pygame.time.get_ticks())
+        if value >= 0:
+            return 255
+        else:
+            return 0
+
     def update(self):
         self.move()
         self.current_sprite += 0.1
+        self.check_death()
+        if not self.vulnerable and pygame.time.get_ticks() - self.vulnerable_time >= self.vulnerable_cooldown:
+            self.vulnerable = True
         if self.current_sprite >= 4:
             self.current_sprite = 0
         if self.sprite_state == 1:
@@ -168,6 +188,12 @@ class Zombie(pygame.sprite.Sprite):
             self.image = self.sprites_left_w[int(self.current_sprite)]
         elif self.sprite_state == 4:
             self.image = self.sprites_down_w[int(self.current_sprite)]
+
+        if not self.vulnerable:
+            alpha = self.wave_value()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
 
     def collision(self):
         collision_tolerance = 10
@@ -203,3 +229,7 @@ class Zombie(pygame.sprite.Sprite):
         self.collision()
         self.rect.y = self.rect.y + self.speed_y
         self.collision()
+
+    def check_death(self):
+        if self.health <= 0:
+            self.kill()

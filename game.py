@@ -40,9 +40,6 @@ obstacles1 = scenario1.get_group()
 obstacles2 = scenario2.get_group()
 
 # background
-background1 = pygame.image.load("assets/background1.png")
-background2 = pygame.image.load("assets/background2.png")
-background3 = pygame.image.load("assets/background3.png")
 
 loop = True
 
@@ -62,7 +59,6 @@ while loop:
 
     # Showing everything
     pygame.display.flip()
-    screen.blit(background3, (175, 0))
 
     if choice_scenario == 1:
         scenario1.draw_scenario()

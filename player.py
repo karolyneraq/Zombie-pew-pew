@@ -97,7 +97,7 @@ class Player(pygame.sprite.Sprite):
         self.health = 3
 
         self.obstacles = None
-        self.hazards = None
+        self.zombies = None
 
     def get_image(self):
         return self.image
@@ -181,7 +181,7 @@ class Player(pygame.sprite.Sprite):
         self.obstacles = obstacles
 
     def set_zombies(self, zombies):
-        self.hazards = zombies
+        self.zombies = zombies
 
     def set_movement(self, joy):
         if joy.get_hat(0)[1] == 1:
@@ -219,11 +219,9 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.x < 0:  # Going left
                         self.rect.left = sprite.rect.right
             if self.vulnerable:
-                for hazard in self.hazards:
-                    if hazard.rect.colliderect(self.rect):
-                        print(self.health)
+                for zombie in self.zombies:
+                    if zombie.rect.colliderect(self.rect):
                         self.health -= 1
-                        print(self.health)
                         self.vulnerable = False
                         self.vulnerable_time = pygame.time.get_ticks()
 
@@ -235,13 +233,16 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.y < 0:  # Going up
                         self.rect.top = sprite.rect.bottom
             if self.vulnerable:
-                for hazard in self.hazards:
-                    if hazard.rect.colliderect(self.rect):
+                for zombie in self.zombies:
+                    if zombie.rect.colliderect(self.rect):
                         print(self.health)
                         self.health -= 1
                         print(self.health)
                         self.vulnerable = False
                         self.vulnerable_time = pygame.time.get_ticks()
+                    collide = pygame.sprite.spritecollide(zombie, self.bullets, True)
+                    if collide:
+                        zombie.damaged()
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
