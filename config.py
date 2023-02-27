@@ -10,7 +10,7 @@ speed_y_balls = -5
 
 # Colors
 BLACK = (0, 0, 0)
-GREY = (128, 128, 128)
+GREY = (124, 132, 139)
 ORANGE = (255, 157, 4)
 YELLOW = (218, 255, 7)
 WHITE = (255, 255, 255)
