@@ -3,7 +3,7 @@ from config import *
 
 
 class Zombie(pygame.sprite.Sprite):
-    def __init__(self, path, spawn, up, right, left, down):
+    def __init__(self, path, spawn, up, right, left, down, walking):
         super().__init__()
         self.sprites_down_w = []
         self.sprites_up_w = []
@@ -46,7 +46,7 @@ class Zombie(pygame.sprite.Sprite):
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[4], True, False))
 
         self.current_sprite = 0
-        self.sprite_state = 2
+        self.sprite_state = 3
         self.image = self.sprites_right_w[self.current_sprite]
         self.spawn_x = spawn[0]
         self.spawn_y = spawn[1]
@@ -63,6 +63,7 @@ class Zombie(pygame.sprite.Sprite):
         self.projectiles = []
         self.lives = 3
         self.obstacles = None
+        self.walking = walking
 
     def get_image(self):
         return self.image
@@ -156,7 +157,8 @@ class Zombie(pygame.sprite.Sprite):
         self.obstacles = obstacles
 
     def update(self):
-        self.move()
+        if self.walking:
+            self.move()
         self.current_sprite += 0.1
         if self.current_sprite >= 4:
             self.current_sprite = 0

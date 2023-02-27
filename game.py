@@ -25,9 +25,18 @@ player_group = pygame.sprite.Group()
 player_group.add(cow1)
 
 # Zombie
-zombie = Zombie("assets/zombie/", (650, 150), True, False, False, False)
+zombie = Zombie("assets/zombie/", (650, 150), True, False, False, False, True)
 zombie_group = pygame.sprite.Group()
 zombie_group.add(zombie)
+
+zombie_list = []
+for y in range(75, 451, 75):
+    zombie_list.append(Zombie("assets/zombie/", (850, y), True, False, False, False, False))
+
+zombie_list_group = pygame.sprite.Group()
+
+for zombie in zombie_list:
+    zombie_list_group.add(zombie)
 
 # scenarios
 scenario1 = Room1()
@@ -84,6 +93,8 @@ while loop:
         for monstro in zombie_group:
             monstro.set_obstacles(obstacles1)
 
+        zombie_group.draw(screen)
+
         if 440 <= cow1.get_rect().x <= 480 and cow1.get_rect().y == 225:
             if not chest_open:
                 scenario1.open_chest()
@@ -95,7 +106,7 @@ while loop:
         if cow1.get_rect().x == 790 and 250 <= cow1.get_rect().y <= 300:
             door_open = True
             screen.blit(background3, (175, 0))
-            cow1.set_rect_topleft(250, 275)
+            cow1.set_rect_topleft(325, 275)
 
     elif not hall_end:
         scenario2.draw_scenario()
@@ -105,18 +116,22 @@ while loop:
         for monstro in zombie_group:
             monstro.set_obstacles(obstacles2)
 
+        zombie_group.draw(screen)
+
         if cow1.get_rect().x >= 860:
             hall_end = True
             screen.blit(background3, (175, 0))
             cow1.set_rect_topleft(250, 275)
     else:
         scenario3.draw_scenario()
+        zombie_list_group.draw(screen)
         cow1.set_obstacles(obstacles3)
+        cow1.set_zombies(zombie_list_group)
+        zombie_list_group.update()
 
     ui.draw_inventory()
     ui.inventory_data()
 
-    zombie_group.draw(screen)
     player_group.draw(screen)
     cow1.get_bullets().draw(screen)
 
