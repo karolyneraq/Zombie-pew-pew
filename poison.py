@@ -9,6 +9,8 @@ class Poison(pygame.sprite.Sprite):
         self.poison_smoke = []
         self.is_animating = False
 
+        self.poison_sound = pygame.mixer.Sound("assets/sounds/gas_2.wav")
+
         self.current_x = pos_x
         self.current_y = pos_y
 
@@ -30,6 +32,7 @@ class Poison(pygame.sprite.Sprite):
         if self.animation_speed > 0:
             if self.current_sprites >= len(self.poison_smoke) - 1:
                 self.animation_speed *= -1
+
             else:
                 self.current_sprites += self.animation_speed
                 self.image = self.poison_smoke[int(self.current_sprites)]
