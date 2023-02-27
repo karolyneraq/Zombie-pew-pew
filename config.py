@@ -33,3 +33,5 @@ KEY_HEIGHT = 370
 KEY_WIDTH = 50
 KEY_TEXT_POS_1 = (87.5, 445)
 KEY_TEXT_POS_2 = (1012.5, 445)
+speed_x_bullets = 4
+speed_y_bullets = -4
