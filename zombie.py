@@ -5,7 +5,7 @@ from config import *
 
 
 class Zombie(pygame.sprite.Sprite):
-    def __init__(self, path, spawn, up, right, left, down):
+    def __init__(self, path, spawn):
         super().__init__()
         self.sprites_down_w = []
         self.sprites_up_w = []
@@ -53,10 +53,6 @@ class Zombie(pygame.sprite.Sprite):
         self.spawn_x = spawn[0]
         self.spawn_y = spawn[1]
         self.rect = self.image.get_rect(topleft=spawn)
-        self.up = up
-        self.right = right
-        self.left = left
-        self.down = down
         self.speed_x = 1
         self.speed_y = 1
         self.fire = False
@@ -77,18 +73,6 @@ class Zombie(pygame.sprite.Sprite):
 
     def get_spawn_y(self):
         return self.spawn_y
-
-    def get_up(self):
-        return self.up
-
-    def get_right(self):
-        return self.right
-
-    def get_left(self):
-        return self.left
-
-    def get_down(self):
-        return self.down
 
     def get_fire(self):
         return self.fire
@@ -116,18 +100,6 @@ class Zombie(pygame.sprite.Sprite):
 
     def set_spawn_y(self, spawn_y):
         self.spawn_y = spawn_y
-
-    def set_up(self, up):
-        self.up = up
-
-    def set_right(self, right):
-        self.right = right
-
-    def set_left(self, left):
-        self.left = left
-
-    def set_down(self, down):
-        self.down = down
 
     def reset_speed(self):
         self.speed_x = zombie_speed_x

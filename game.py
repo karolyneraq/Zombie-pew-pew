@@ -26,7 +26,7 @@ player_group = pygame.sprite.Group()
 player_group.add(cow1)
 
 # Zombie
-zombie = Zombie("assets/zombie/", (650, 150), True, False, False, False)
+zombie = Zombie("assets/zombie/", (650, 150))
 zombie_group = pygame.sprite.Group()
 zombie_group.add(zombie)
 
