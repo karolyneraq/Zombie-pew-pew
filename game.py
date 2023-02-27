@@ -106,8 +106,8 @@ while loop:
     # Movement Keys
     cow1.set_movement(pygame.joystick.Joystick(0))
     cow1.set_fire(pygame.joystick.Joystick(0))
-    cow2.set_movement(pygame.joystick.Joystick(0))
-    cow2.set_fire(pygame.joystick.Joystick(0))
+    cow2.set_movement(pygame.joystick.Joystick(1))
+    cow2.set_fire(pygame.joystick.Joystick(1))
 
     if not victory and len(player_group) != 0:
         # Moving the objects
