@@ -5,7 +5,7 @@ from config import *
 
 
 class Zombie(pygame.sprite.Sprite):
-    def __init__(self, path, spawn):
+    def __init__(self, path, spawn, up, right, left, down, walking):
         super().__init__()
         self.sprites_down_w = []
         self.sprites_up_w = []
@@ -48,22 +48,27 @@ class Zombie(pygame.sprite.Sprite):
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[4], True, False))
 
         self.current_sprite = 0
-        self.sprite_state = 2
+        self.sprite_state = 3
         self.image = self.sprites_right_w[self.current_sprite]
         self.spawn_x = spawn[0]
         self.spawn_y = spawn[1]
         self.rect = self.image.get_rect(topleft=spawn)
+        self.up = up
+        self.right = right
+        self.left = left
+        self.down = down
         self.speed_x = 1
         self.speed_y = 1
         self.fire = False
         self.reloading = False
+        self.reload_time = 0
         self.vulnerable = True
         self.vulnerable_time = 0
         self.vulnerable_cooldown = 700
-        self.reload_time = 0
         self.projectiles = []
         self.health = 2
         self.obstacles = None
+        self.walking = walking
 
     def get_image(self):
         return self.image
@@ -73,6 +78,18 @@ class Zombie(pygame.sprite.Sprite):
 
     def get_spawn_y(self):
         return self.spawn_y
+
+    def get_up(self):
+        return self.up
+
+    def get_right(self):
+        return self.right
+
+    def get_left(self):
+        return self.left
+
+    def get_down(self):
+        return self.down
 
     def get_fire(self):
         return self.fire
@@ -101,6 +118,18 @@ class Zombie(pygame.sprite.Sprite):
     def set_spawn_y(self, spawn_y):
         self.spawn_y = spawn_y
 
+    def set_up(self, up):
+        self.up = up
+
+    def set_right(self, right):
+        self.right = right
+
+    def set_left(self, left):
+        self.left = left
+
+    def set_down(self, down):
+        self.down = down
+
     def reset_speed(self):
         self.speed_x = zombie_speed_x
         self.speed_y = zombie_speed_y
@@ -120,6 +149,9 @@ class Zombie(pygame.sprite.Sprite):
     def remove_projectile(self, projectile):
         self.projectiles.remove(projectile)
 
+    def set_lives(self, lives):
+        self.health = lives
+
     def set_rect(self, rect):
         self.rect = rect
 
@@ -128,9 +160,6 @@ class Zombie(pygame.sprite.Sprite):
 
     def set_obstacles(self, obstacles):
         self.obstacles = obstacles
-
-    def set_projectiles(self, projectiles):
-        self.projectiles = projectiles
 
     def damaged(self):
         self.vulnerable = False
@@ -145,7 +174,8 @@ class Zombie(pygame.sprite.Sprite):
             return 0
 
     def update(self):
-        self.move()
+        if self.walking:
+            self.move()
         self.current_sprite += 0.1
         self.check_death()
         if not self.vulnerable and pygame.time.get_ticks() - self.vulnerable_time >= self.vulnerable_cooldown:

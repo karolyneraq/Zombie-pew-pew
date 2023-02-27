@@ -9,6 +9,7 @@ class Room1:
     def __init__(self):
         self.scenario = pygame.sprite.Group()
         self.collide_sprites = pygame.sprite.Group()
+        self.interactions_sprites = pygame.sprite.Group()
 
         self.surface = pygame.display.get_surface()
 
@@ -21,8 +22,8 @@ class Room1:
         self.stretcher_horizontal1 = pygame.image.load("assets/stretcher/stretcher_horizontal1.png")
 
         # Chests
-        self.chest_player1 = Chest(450, 150, False)
-        self.chest_player2 = Chest(450, 375, False)
+        self.chest_player = Chest(450, 150)
+        self.chest_state = "closed"
 
         self.add_elements()
 
@@ -30,13 +31,22 @@ class Room1:
         self.scenario.draw(self.surface)
 
         # Chest
-        self.chest_player1.animate()
-        self.chest_player2.animate()
-        self.chest_player1.update()
-        self.chest_player2.update()
+        self.chest_player.animate()
+        self.chest_player.update()
+
+    def open_chest(self):
+        self.chest_state = "opening"
+        self.chest_player.add_animations(self.chest_state)
+
+    def chest_opened(self):
+        self.chest_state = "opened"
+        self.chest_player.add_animations(self.chest_state)
 
     def get_group(self):
         return self.collide_sprites
+
+    def get_interactions_sprites(self):
+        return self.interactions_sprites
 
     def add_elements(self):
         # Walls
@@ -80,14 +90,15 @@ class Room1:
 
         # Door
         door_top2_rotated = pygame.transform.rotate(self.door_top2, 270)
-        Element((850, 300), [self.scenario, self.collide_sprites], door_top2_rotated)
+        Element((850, 300), [self.scenario, self.collide_sprites, self.interactions_sprites], door_top2_rotated)
 
         # Stretchers
         Element((250, 225), [self.scenario, self.collide_sprites], self.stretcher_horizontal1)
         Element((250, 300), [self.scenario, self.collide_sprites], self.stretcher_horizontal1)
 
         # Chest
-        self.scenario.add(self.chest_player1)
-        self.scenario.add(self.chest_player2)
-        self.collide_sprites.add(self.chest_player1)
-        self.collide_sprites.add(self.chest_player2)
+        self.scenario.add(self.chest_player)
+
+        self.interactions_sprites.add(self.chest_player)
+
+        self.collide_sprites.add(self.chest_player)
