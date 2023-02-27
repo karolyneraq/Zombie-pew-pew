@@ -56,15 +56,11 @@ class UI:
         # Player 1
         Element((ICON_WIDTH, ICON_HEIGHT), [self.inventory], pygame.transform.scale(self.player_1_icon, (75, 75)))
         Element((HEALTH_WIDTH, HEALTH_HEIGHT), [self.inventory], self.health_1)
-        Element((BULLET_WIDTH, BULLET_HEIGHT), [self.inventory], self.bullet_1)
-        Element((MEDIC_KIT_WIDTH, MEDIC_KIT_HEIGHT), [self.inventory], self.medic_kit_1)
         Element((KEY_WIDTH, KEY_HEIGHT), [self.inventory], self.key_1)
 
         # Player 2
         Element((ICON_WIDTH + 925, ICON_HEIGHT), [self.inventory], pygame.transform.scale(self.player_2_icon, (75, 75)))
         Element((HEALTH_WIDTH + 925, HEALTH_HEIGHT ), [self.inventory], self.health_2)
-        Element((BULLET_WIDTH + 925, BULLET_HEIGHT), [self.inventory], self.bullet_2)
-        Element((MEDIC_KIT_WIDTH + 925, MEDIC_KIT_HEIGHT), [self.inventory], self.medic_kit_2)
         Element((KEY_WIDTH + 925, KEY_HEIGHT), [self.inventory], self.key_2)
 
     def set_health_player1(self, health):
@@ -72,18 +68,6 @@ class UI:
 
     def set_health_player2(self, health):
         self.health_2 = health
-
-    def set_bullet_player1(self, bullet):
-        self.bullet_1 = health
-
-    def set_bullet_player2(self, bullet):
-        self.bullet_2 = health
-    
-    def set_medic_kit_player1(self, medic_kit):
-        self.medic_kit_1 = health
-
-    def set_medic_kit_player2(self, medic_kit):
-        self.medic_kit_2 = health
     
     def set_key_player1(self, key):
         self.key_1 = health
@@ -96,18 +80,6 @@ class UI:
 
     def get_health_player2(self, health):
         return self.health_2
-
-    def get_bullet_player1(self, bullet):
-        return self.bullet_1
-
-    def get_bullet_player2(self, bullet):
-        return self.bullet_2
-    
-    def get_medic_kit_player1(self, medic_kit):
-        return self.medic_kit_1
-
-    def get_medic_kit_player2(self, medic_kit):
-        return self.medic_kit_2
     
     def get_key_player1(self, key):
         return self.key_1
@@ -118,14 +90,10 @@ class UI:
     def inventory_data(self):
         # Player 1
         self.health_1 = 3
-        self.bullet_1 = 12
-        self.medic_kit_1 = 1
         self.key_1 = 2
 
         # Player 2
         self.health_2 = 3
-        self.bullet_2 = 12
-        self.medic_kit_2 = 1
         self.key_2 = 2
 
         # Player 1
@@ -133,16 +101,6 @@ class UI:
         health_text_rect_1 = health_text_1.get_rect()
         health_text_rect_1.center = HEALTH_TEXT_POS_1
         self.display_surface.blit(health_text_1, health_text_rect_1)
-
-        bullet_text_1 = self.font.render(f'[{self.bullet_1}]', True, WHITE, GREY)
-        bullet_text_rect_1 = bullet_text_1.get_rect()
-        bullet_text_rect_1.center = BULLET_TEXT_POS_1
-        self.display_surface.blit(bullet_text_1, bullet_text_rect_1)
-
-        medic_kit_text_1 = self.font.render(f'[{self.medic_kit_1}]', True, WHITE, GREY)
-        medic_kit_text_rect_1 = medic_kit_text_1.get_rect()
-        medic_kit_text_rect_1.center = MEDIC_KIT_TEXT_POS_1
-        self.display_surface.blit(medic_kit_text_1, medic_kit_text_rect_1)
 
         key_text_1 = self.font.render(f'[{self.key_1}]', True, WHITE, GREY)
         key_text_rect_1 = key_text_1.get_rect()
@@ -155,24 +113,7 @@ class UI:
         health_text_rect_2.center = HEALTH_TEXT_POS_2
         self.display_surface.blit(health_text_2, health_text_rect_2)
 
-        bullet_text_2 = self.font.render(f'[{self.bullet_2}]', True, WHITE, GREY)
-        bullet_text_rect_2 = bullet_text_2.get_rect()
-        bullet_text_rect_2.center = BULLET_TEXT_POS_2
-        self.display_surface.blit(bullet_text_2, bullet_text_rect_2)
-
-        medic_kit_text_2 = self.font.render(f'[{self.medic_kit_2}]', True, WHITE, GREY)
-        medic_kit_text_rect_2 = medic_kit_text_2.get_rect()
-        medic_kit_text_rect_2.center = MEDIC_KIT_TEXT_POS_2
-        self.display_surface.blit(medic_kit_text_2, medic_kit_text_rect_2)
-
         key_text_2 = self.font.render(f'[{self.key_2}]', True, WHITE, GREY)
         key_text_rect_2 = key_text_2.get_rect()
         key_text_rect_2.center = KEY_TEXT_POS_2
         self.display_surface.blit(key_text_2, key_text_rect_2)
-
-
-    #def display(self, player):
-        #screen.blit(self.health_rect, (HEALTH_WIDTH, HEALTH_HEIGHT))
-        #self.show_health(player.health, player.stats['health'], self.health_rect)
-        #self.show_bar(player.health,player.stats['health'],self.health_bar_rect,(213, 123, 95))
-        #self.show_bar(player.bullet,player.stats['bullet'],self.energy_bar_rect,(123, 4, 57))

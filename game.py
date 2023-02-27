@@ -60,7 +60,7 @@ while loop:
     cow1.set_fire(pygame.joystick.Joystick(0))
 
     # Moving the objects
-    zombie.move()
+    #zombie.move()
 
     for bullet in cow1.get_bullets():
         bullet.move()
@@ -89,11 +89,11 @@ while loop:
     ui.draw_inventory()
     ui.inventory_data()
 
-    zombie_group.draw(screen)
+    #zombie_group.draw(screen)
     player_group.draw(screen)
     cow1.get_bullets().draw(screen)
 
-    zombie_group.update()
+    #zombie_group.update()
     player_group.update()
 
     clock.tick(60)
