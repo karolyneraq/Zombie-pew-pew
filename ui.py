@@ -10,22 +10,34 @@ class UI:
         self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
         self.inventory = pygame.sprite.Group()
 
+        self.life_p1_0 = pygame.sprite.Group()
+        self.life_p1_1 = pygame.sprite.Group()
+        self.life_p1_2 = pygame.sprite.Group()
+        self.life_p1_3 = pygame.sprite.Group()
+
+        self.life_p2_0 = pygame.sprite.Group()
+        self.life_p2_1 = pygame.sprite.Group()
+        self.life_p2_2 = pygame.sprite.Group()
+        self.life_p2_3 = pygame.sprite.Group()
+
         # Inventory
         self.hud_fill = pygame.image.load('assets/UI/hud_fill.png')
 
         self.heart_empty = pygame.image.load('assets/UI/heart_empty.png')
 
-        self.player_1_icon = pygame.image.load('assets/UI/character_1_icon.png')
-        self.health_1 = pygame.image.load('assets/UI/heart_full.png')
-        self.bullet_1 = pygame.image.load('assets/UI/gun.png')
-        self.medic_kit_1 = pygame.image.load('assets/UI/medics_kit.png')
-        self.key_1 = pygame.image.load('assets/UI/key.png')
+        self.player_1_icon = pygame.image.load('assets/UI/red_icon.png')
 
-        self.player_2_icon = pygame.image.load('assets/UI/character_2_icon.png')
-        self.health_2 = pygame.image.load('assets/UI/heart_full.png')
-        self.bullet_2 = pygame.image.load('assets/UI/gun.png')
-        self.medic_kit_2 = pygame.image.load('assets/UI/medics_kit.png')
-        self.key_2 = pygame.image.load('assets/UI/key.png')
+        self.bullet_1_icon = pygame.image.load('assets/UI/gun.png')
+        self.key_1_icon = pygame.image.load('assets/UI/key.png')
+
+        self.player_2_icon = pygame.image.load('assets/UI/blue_icon.png')
+        self.bullet_2_icon = pygame.image.load('assets/UI/gun.png')
+        self.key_2_icon = pygame.image.load('assets/UI/key.png')
+
+        self.health_icon = []
+
+        for i in range(0, 4):
+            self.health_icon.append(pygame.image.load('assets/UI/health_{}.png'.format(i)))
 
         self.add_inventory()
 
@@ -57,41 +69,51 @@ class UI:
         Element((0, 0), [self.inventory], self.hud_fill)
         Element((925, 0), [self.inventory], self.hud_fill)
 
-        # Element(())
-
         # Player 1
-        Element((ICON_WIDTH, ICON_HEIGHT), [self.inventory], self.player_1_icon)
-        Element((HEALTH_WIDTH, HEALTH_HEIGHT), [self.inventory], self.health_1)
-        Element((BULLET_WIDTH, BULLET_HEIGHT), [self.inventory], self.bullet_1)
-        Element((MEDIC_KIT_WIDTH, MEDIC_KIT_HEIGHT), [self.inventory], self.medic_kit_1)
-        Element((KEY_WIDTH, KEY_HEIGHT), [self.inventory], self.key_1)
+        Element((ICON_WIDTH, ICON_HEIGHT), [self.inventory], pygame.transform.scale(self.player_1_icon, (75, 75)))
+        Element((BULLET_WIDTH, BULLET_HEIGHT), [self.inventory], self.bullet_1_icon)
+
+        Element((HEALTH_WIDTH, HEALTH_HEIGHT), [self.life_p1_0], self.health_icon[0])
+        Element((HEALTH_WIDTH, HEALTH_HEIGHT), [self.life_p1_1], self.health_icon[1])
+        Element((HEALTH_WIDTH, HEALTH_HEIGHT), [self.life_p1_2], self.health_icon[2])
+        Element((HEALTH_WIDTH, HEALTH_HEIGHT), [self.life_p1_3], self.health_icon[3])
 
         # Player 2
-        Element((ICON_WIDTH + 925, ICON_HEIGHT), [self.inventory], self.player_2_icon)
-        Element((HEALTH_WIDTH + 925, HEALTH_HEIGHT), [self.inventory], self.health_2)
-        Element((BULLET_WIDTH + 925, BULLET_HEIGHT), [self.inventory], self.bullet_2)
-        Element((MEDIC_KIT_WIDTH + 925, MEDIC_KIT_HEIGHT), [self.inventory], self.medic_kit_2)
-        Element((KEY_WIDTH + 925, KEY_HEIGHT), [self.inventory], self.key_2)
+        Element((HEALTH_WIDTH + 925, HEALTH_HEIGHT), [self.life_p2_0], self.health_icon[0])
+        Element((HEALTH_WIDTH + 925, HEALTH_HEIGHT), [self.life_p2_1], self.health_icon[1])
+        Element((HEALTH_WIDTH + 925, HEALTH_HEIGHT), [self.life_p2_2], self.health_icon[2])
+        Element((HEALTH_WIDTH + 925, HEALTH_HEIGHT), [self.life_p2_3], self.health_icon[3])
+
+        Element((ICON_WIDTH + 925, ICON_HEIGHT), [self.inventory], pygame.transform.scale(self.player_2_icon, (75, 75)))
+        Element((BULLET_WIDTH + 925, BULLET_HEIGHT), [self.inventory], self.bullet_2_icon)
 
     def inventory_data(self):
+        if self.health_1 == 0:
+            self.life_p1_0.draw(self.display_surface)
+        elif self.health_1 == 1:
+            self.life_p1_1.draw(self.display_surface)
+        elif self.health_1 == 2:
+            self.life_p1_2.draw(self.display_surface)
+        elif self.health_1 == 3:
+            self.life_p1_3.draw(self.display_surface)
+
+        if self.health_2 == 0:
+            self.life_p2_0.draw(self.display_surface)
+        elif self.health_2 == 1:
+            self.life_p2_1.draw(self.display_surface)
+        elif self.health_2 == 2:
+            self.life_p2_2.draw(self.display_surface)
+        elif self.health_1 == 3:
+            self.life_p2_3.draw(self.display_surface)
+
         # Player 1
         health_text_1 = self.font.render(f'[{self.health_1}]', True, WHITE, GREY)
         health_text_rect_1 = health_text_1.get_rect()
         health_text_rect_1.center = HEALTH_TEXT_POS_1
         self.display_surface.blit(health_text_1, health_text_rect_1)
 
-        key_text_1 = self.font.render(f'[{self.key_1}]', True, WHITE, GREY)
-        key_text_rect_1 = key_text_1.get_rect()
-        key_text_rect_1.center = KEY_TEXT_POS_1
-        self.display_surface.blit(key_text_1, key_text_rect_1)
-
         # Player 2
         health_text_2 = self.font.render(f'[{self.health_2}]', True, WHITE, GREY)
         health_text_rect_2 = health_text_2.get_rect()
         health_text_rect_2.center = HEALTH_TEXT_POS_2
         self.display_surface.blit(health_text_2, health_text_rect_2)
-
-        key_text_2 = self.font.render(f'[{self.key_2}]', True, WHITE, GREY)
-        key_text_rect_2 = key_text_2.get_rect()
-        key_text_rect_2.center = KEY_TEXT_POS_2
-        self.display_surface.blit(key_text_2, key_text_rect_2)

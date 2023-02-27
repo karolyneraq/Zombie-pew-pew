@@ -76,6 +76,7 @@ class Player(pygame.sprite.Sprite):
 
         self.current_sprite = 0
         self.sprite_state = 2
+        self.sprite_sound = self.sprite_state - 0.1
         self.image = self.sprites_right_s[self.current_sprite]
         self.spawn_x = spawn[0]
         self.spawn_y = spawn[1]
@@ -91,10 +92,14 @@ class Player(pygame.sprite.Sprite):
         self.vulnerable = True
         self.vulnerable_cooldown = 3000
         self.vulnerable_time = 0
-        self.reload_cooldown = 500
+        self.reload_cooldown = 1000
         self.reload_time = 0
         self.bullets = pygame.sprite.Group()
         self.health = 3
+
+        self.shoot_sound = pygame.mixer.Sound("assets/sounds/shoot_2.wav")
+        self.step_sound = pygame.mixer.Sound("assets/sounds/step_2.wav")
+        self.shot_zombie = pygame.mixer.Sound("assets/sounds/step_2.wav")
 
         self.obstacles = None
         self.zombies = None
@@ -224,21 +229,16 @@ class Player(pygame.sprite.Sprite):
                         self.rect.left = sprite.rect.right
             if self.vulnerable:
                 for zombie in self.zombies:
-                    if self.health > 0:
-                        if zombie.rect.colliderect(self.rect):
-                            self.health -= 1
-                            self.vulnerable = False
-                            self.vulnerable_time = pygame.time.get_ticks()
-                    else:
-                        self.kill()
-                for hazard in self.hazards:
-                    if self.health > 0:
+                    if zombie.rect.colliderect(self.rect):
+                        self.health -= 1
+                        self.vulnerable = False
+                        self.vulnerable_time = pygame.time.get_ticks()
+                if self.hazards is not None:
+                    for hazard in self.hazards:
                         if hazard.rect.colliderect(self.rect):
                             self.health -= 1
                             self.vulnerable = False
                             self.vulnerable_time = pygame.time.get_ticks()
-                    else:
-                        self.kill()
 
         if orient == 1:
             for sprite in self.obstacles:
@@ -257,12 +257,17 @@ class Player(pygame.sprite.Sprite):
                         self.vulnerable_time = pygame.time.get_ticks()
                     collide = pygame.sprite.spritecollide(zombie, self.bullets, True)
                     if collide:
+                        self.shot_zombie.play()
                         zombie.damaged()
-                for hazard in self.hazards:
-                    if hazard.rect.colliderect(self.rect):
-                        self.health -= 1
-                        self.vulnerable = False
-                        self.vulnerable_time = pygame.time.get_ticks()
+                if self.hazards is not None:
+                    for hazard in self.hazards:
+                        if self.health > 0:
+                            if hazard.rect.colliderect(self.rect):
+                                self.health -= 1
+                                self.vulnerable = False
+                                self.vulnerable_time = pygame.time.get_ticks()
+                        else:
+                            self.kill()
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
@@ -280,66 +285,71 @@ class Player(pygame.sprite.Sprite):
             return 0
 
     def update(self):
-        self.move(self.speed)
-        self.current_sprite += 0.1
-        if self.moving_x or self.moving_y:
-            if self.current_sprite >= 4:
-                self.current_sprite = 0
-            if self.sprite_state == 1:
-                self.image = self.sprites_up_w[int(self.current_sprite)]
-            elif self.sprite_state == 2:
-                self.image = self.sprites_right_w[int(self.current_sprite)]
-            elif self.sprite_state == 3:
-                self.image = self.sprites_left_w[int(self.current_sprite)]
-            elif self.sprite_state == 4:
-                self.image = self.sprites_down_w[int(self.current_sprite)]
+        if self.health > 0:
+            self.move(self.speed)
+            self.current_sprite += 0.1
+            if self.moving_x or self.moving_y:
+                if self.current_sprite >= 4:
+                    self.current_sprite = 0
+                if self.sprite_state == 1:
+                    self.image = self.sprites_up_w[int(self.current_sprite)]
+                elif self.sprite_state == 2:
+                    self.image = self.sprites_right_w[int(self.current_sprite)]
+                elif self.sprite_state == 3:
+                    self.image = self.sprites_left_w[int(self.current_sprite)]
+                elif self.sprite_state == 4:
+                    self.image = self.sprites_down_w[int(self.current_sprite)]
 
-        else:
-            if self.current_sprite >= 5:
-                self.current_sprite = 0
-            if self.sprite_state == 1:
-                self.image = self.sprites_up_s[int(self.current_sprite)]
-            elif self.sprite_state == 2:
-                self.image = self.sprites_right_s[int(self.current_sprite)]
-            elif self.sprite_state == 3:
-                self.image = self.sprites_left_s[int(self.current_sprite)]
-            elif self.sprite_state == 4:
-                self.image = self.sprites_down_s[int(self.current_sprite)]
+            else:
+                if self.current_sprite >= 5:
+                    self.current_sprite = 0
+                if self.sprite_state == 1:
+                    self.image = self.sprites_up_s[int(self.current_sprite)]
+                elif self.sprite_state == 2:
+                    self.image = self.sprites_right_s[int(self.current_sprite)]
+                elif self.sprite_state == 3:
+                    self.image = self.sprites_left_s[int(self.current_sprite)]
+                elif self.sprite_state == 4:
+                    self.image = self.sprites_down_s[int(self.current_sprite)]
 
-        if not self.vulnerable:
-            alpha = self.wave_value()
-            self.image.set_alpha(alpha)
+            if not self.vulnerable:
+                alpha = self.wave_value()
+                self.image.set_alpha(alpha)
+            else:
+                self.image.set_alpha(255)
         else:
-            self.image.set_alpha(255)
+            self.kill()
 
     def shoot(self, direction):
-        if self.sprite_state == 2:
-            if direction == (0, 0):
-                direction = (1, 0)
-            bullet = Projectile(
-                "assets/bullet.png", direction, self.rect.midright[0], self.rect.midright[1], self.obstacles)
-            self.bullets.add(bullet)
-        elif self.sprite_state == 1:
-            if direction == (0, 0):
-                direction = (0, 1)
-            bullet = Projectile(
-                "assets/bullet.png", direction, self.rect.midtop[0], self.rect.midtop[1], self.obstacles)
-            self.bullets.add(bullet)
-        elif self.sprite_state == 3:
-            if direction == (0, 0):
-                direction = (-1, 0)
-            bullet = Projectile(
-                "assets/bullet.png", direction, self.rect.midleft[0], self.rect.midleft[1], self.obstacles)
-            self.bullets.add(bullet)
-        elif self.sprite_state == 4:
-            if direction == (0, 0):
-                direction = (0, -1)
-            bullet = Projectile(
-                "assets/bullet.png", direction, self.rect.midbottom[0], self.rect.midbottom[1], self.obstacles)
-            self.bullets.add(bullet)
+        if self.health > 0:
+            if self.sprite_state == 2:
+                if direction == (0, 0):
+                    direction = (1, 0)
+                bullet = Projectile(
+                    "assets/bullet.png", direction, self.rect.midright[0], self.rect.midright[1], self.obstacles)
+                self.bullets.add(bullet)
+            elif self.sprite_state == 1:
+                if direction == (0, 0):
+                    direction = (0, 1)
+                bullet = Projectile(
+                    "assets/bullet.png", direction, self.rect.midtop[0], self.rect.midtop[1], self.obstacles)
+                self.bullets.add(bullet)
+            elif self.sprite_state == 3:
+                if direction == (0, 0):
+                    direction = (-1, 0)
+                bullet = Projectile(
+                    "assets/bullet.png", direction, self.rect.midleft[0], self.rect.midleft[1], self.obstacles)
+                self.bullets.add(bullet)
+            elif self.sprite_state == 4:
+                if direction == (0, 0):
+                    direction = (0, -1)
+                bullet = Projectile(
+                    "assets/bullet.png", direction, self.rect.midbottom[0], self.rect.midbottom[1], self.obstacles)
+                self.bullets.add(bullet)
 
     def set_fire(self, joy):
         if joy.get_button(1) == 1 and not self.reloading:
+            self.shoot_sound.play()
             self.shoot(joy.get_hat(0))
             self.reloading = True
             self.reload_time = pygame.time.get_ticks()

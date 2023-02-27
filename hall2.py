@@ -98,6 +98,8 @@ class Hall2:
         rect_wall = pygame.Surface((75, 75))
         for y in range(150, 375):
             Element((100, y), [self.obstacle], rect_wall)
+        for y in range(75, 451, 75):
+            Element((925, y), [self.obstacle], rect_wall)
 
         # Lower Walls
         wall_corner_real_rotated_lower = pygame.transform.rotate(self.wall_corner_real, 90)
