@@ -33,6 +33,7 @@ zombie_group.add(zombie)
 
 zombie_list = []
 for y in range(75, 451, 75):
+    print(y)
     zombie_list.append(Zombie("assets/zombie/", (850, y), True, False, False, False, False))
 
 zombie_list_group = pygame.sprite.Group()
@@ -52,9 +53,6 @@ chest_open = False
 obstacles1 = scenario1.get_group()
 obstacles2 = scenario2.get_group()
 obstacles3 = scenario3.get_obstacle()
-
-# stage_hazard
-stage_hazard = [scenario2.get_stage_hazard(), scenario3.get_stage_hazard()]
 
 # interaction sprites
 interaction_sprites = scenario1.get_interactions_sprites()
@@ -95,8 +93,10 @@ while loop:
         scenario1.draw_scenario()
         cow1.set_obstacles(obstacles1)
         cow1.set_zombies(zombie_group)
+        cow1.set_hazards(scenario2.get_stage_hazard())
         cow2.set_obstacles(obstacles1)
         cow2.set_zombies(zombie_group)
+        cow2.set_hazards(scenario2.get_stage_hazard())
 
         for monstro in zombie_group:
             monstro.set_obstacles(obstacles1)
@@ -115,13 +115,16 @@ while loop:
             door_open = True
             screen.blit(background3, (175, 0))
             cow1.set_rect_topleft(325, 275)
+            cow2.set_rect_topleft(325, 350)
 
     elif not hall_end:
         scenario2.draw_scenario()
         cow1.set_obstacles(obstacles2)
         cow1.set_zombies(zombie_group)
+        cow1.set_hazards(scenario2.get_stage_hazard())
         cow2.set_obstacles(obstacles2)
         cow2.set_zombies(zombie_group)
+        cow2.set_hazards(scenario2.get_stage_hazard())
 
         for monstro in zombie_group:
             monstro.set_obstacles(obstacles2)
@@ -132,13 +135,16 @@ while loop:
             hall_end = True
             screen.blit(background3, (175, 0))
             cow1.set_rect_topleft(250, 275)
+            cow2.set_rect_topleft(325, 350)
     else:
         scenario3.draw_scenario()
         zombie_list_group.draw(screen)
         cow1.set_obstacles(obstacles3)
-        cow1.set_zombies(zombie_list_group)
+        cow1.set_zombies(zombie_group)
+        cow1.set_hazards(scenario3.get_stage_hazard())
         cow2.set_obstacles(obstacles3)
         cow2.set_zombies(zombie_group)
+        cow2.set_hazards(scenario3.get_stage_hazard())
         zombie_list_group.update()
 
     ui.draw_inventory()
