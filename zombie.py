@@ -69,10 +69,6 @@ class Zombie(pygame.sprite.Sprite):
         self.health = 2
         self.obstacles = None
         self.walking = walking
-        self.lives = 3
-        self.vision_radius = 150
-        self.attack_radius = 50
-        self.distance = 5
 
     def get_image(self):
         return self.image

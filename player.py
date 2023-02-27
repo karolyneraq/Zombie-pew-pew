@@ -89,7 +89,7 @@ class Player(pygame.sprite.Sprite):
         self.fire = False
         self.reloading = False
         self.vulnerable = True
-        self.vulnerable_cooldown = 2000
+        self.vulnerable_cooldown = 3000
         self.vulnerable_time = 0
         self.reload_cooldown = 500
         self.reload_time = 0
@@ -98,6 +98,7 @@ class Player(pygame.sprite.Sprite):
 
         self.obstacles = None
         self.zombies = None
+        self.hazards = None
 
     def get_image(self):
         return self.image
@@ -183,6 +184,9 @@ class Player(pygame.sprite.Sprite):
     def set_zombies(self, zombies):
         self.zombies = zombies
 
+    def set_hazards(self, hazards):
+        self.hazards = hazards
+
     def set_movement(self, joy):
         if joy.get_hat(0)[1] == 1:
             self.direction.y = -1
@@ -227,6 +231,14 @@ class Player(pygame.sprite.Sprite):
                             self.vulnerable_time = pygame.time.get_ticks()
                     else:
                         self.kill()
+                for hazard in self.hazards:
+                    if self.health > 0:
+                        if hazard.rect.colliderect(self.rect):
+                            self.health -= 1
+                            self.vulnerable = False
+                            self.vulnerable_time = pygame.time.get_ticks()
+                    else:
+                        self.kill()
 
         if orient == 1:
             for sprite in self.obstacles:
@@ -237,18 +249,20 @@ class Player(pygame.sprite.Sprite):
                         self.rect.top = sprite.rect.bottom
             if self.vulnerable:
                 for zombie in self.zombies:
-                    if self.health > 0:
-                        if zombie.rect.colliderect(self.rect):
-                            print(self.health)
-                            self.health -= 1
-                            print(self.health)
-                            self.vulnerable = False
-                            self.vulnerable_time = pygame.time.get_ticks()
-                    else:
-                        self.kill()
+                    if zombie.rect.colliderect(self.rect):
+                        print(self.health)
+                        self.health -= 1
+                        print(self.health)
+                        self.vulnerable = False
+                        self.vulnerable_time = pygame.time.get_ticks()
                     collide = pygame.sprite.spritecollide(zombie, self.bullets, True)
                     if collide:
                         zombie.damaged()
+                for hazard in self.hazards:
+                    if hazard.rect.colliderect(self.rect):
+                        self.health -= 1
+                        self.vulnerable = False
+                        self.vulnerable_time = pygame.time.get_ticks()
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
