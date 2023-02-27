@@ -255,10 +255,6 @@ class Player(pygame.sprite.Sprite):
                         print(self.health)
                         self.vulnerable = False
                         self.vulnerable_time = pygame.time.get_ticks()
-                    collide = pygame.sprite.spritecollide(zombie, self.bullets, True)
-                    if collide:
-                        self.shot_zombie.play()
-                        zombie.damaged()
                 if self.hazards is not None:
                     for hazard in self.hazards:
                         if self.health > 0:
@@ -268,6 +264,11 @@ class Player(pygame.sprite.Sprite):
                                 self.vulnerable_time = pygame.time.get_ticks()
                         else:
                             self.kill()
+            for zombie in self.zombies:
+                collide = pygame.sprite.spritecollide(zombie, self.bullets, True)
+                if collide:
+                    self.shot_zombie.play()
+                    zombie.damaged()
 
     def move(self, speed):
         if self.direction.magnitude() != 0:

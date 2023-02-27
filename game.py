@@ -20,6 +20,7 @@ clock = pygame.time.Clock()
 music = pygame.mixer.Sound("assets/sounds/theme_song.mp3")
 music.set_volume(0.25)
 music.play()
+time_music = pygame.time.get_ticks()
 
 # screen
 screen = pygame.display.set_mode(screen_size)
@@ -97,6 +98,10 @@ while loop:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             loop = False
+
+    if pygame.time.get_ticks() - time_music <= 0:
+        music.play()
+        time_music = pygame.time.get_ticks()
 
     # Movement Keys
     cow1.set_movement(pygame.joystick.Joystick(0))
