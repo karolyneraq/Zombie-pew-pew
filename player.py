@@ -3,6 +3,14 @@ from projectile import Projectile
 from math import sin
 
 
+def wave_value():
+    value = sin(pygame.time.get_ticks())
+    if value >= 0:
+        return 255
+    else:
+        return 0
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, path, spawn):
         super().__init__()
@@ -180,7 +188,7 @@ class Player(pygame.sprite.Sprite):
     def set_rect(self, rect):
         self.rect = rect
 
-    def set_rect_topleft(self, x, y):
+    def set_rect_top_left(self, x, y):
         self.rect.topleft = (x, y)
 
     def set_obstacles(self, obstacles):
@@ -191,6 +199,85 @@ class Player(pygame.sprite.Sprite):
 
     def set_hazards(self, hazards):
         self.hazards = hazards
+
+    def set_movement_keys(self, event, player):
+        if event.type == pygame.KEYDOWN:
+            if player == 1:
+                if event.key == pygame.K_w:
+                    self.direction.y = -1
+                    self.sprite_state = 1
+                    self.moving_y = True
+
+                if event.key == pygame.K_s:
+                    self.direction.y = 1
+                    self.sprite_state = 4
+                    self.moving_y = True
+
+                if event.key == pygame.K_d:
+                    self.direction.x = 1
+                    self.sprite_state = 2
+                    self.moving_x = True
+
+                if event.key == pygame.K_a:
+                    self.moving_x = True
+                    self.direction.x = -1
+                    self.sprite_state = 3
+
+            else:
+                if event.key == pygame.K_UP:
+                    self.direction.y = -1
+                    self.sprite_state = 1
+                    self.moving_y = True
+
+                if event.key == pygame.K_DOWN:
+                    self.direction.y = 1
+                    self.sprite_state = 4
+                    self.moving_y = True
+
+                if event.key == pygame.K_RIGHT:
+                    self.direction.x = 1
+                    self.sprite_state = 2
+                    self.moving_x = True
+
+                if event.key == pygame.K_LEFT:
+                    self.moving_x = True
+                    self.direction.x = -1
+                    self.sprite_state = 3
+
+        if event.type == pygame.KEYUP:
+            if player == 1:
+                if event.key == pygame.K_w:
+                    self.direction.y = 0
+                    self.moving_y = False
+
+                if event.key == pygame.K_s:
+                    self.direction.y = 0
+                    self.moving_y = False
+
+                if event.key == pygame.K_d:
+                    self.direction.x = 0
+                    self.moving_x = False
+
+                if event.key == pygame.K_a:
+                    self.direction.x = 0
+                    self.moving_x = False
+
+            else:
+                if event.key == pygame.K_UP:
+                    self.direction.y = 0
+                    self.moving_y = False
+
+                if event.key == pygame.K_DOWN:
+                    self.direction.y = 0
+                    self.moving_y = False
+
+                if event.key == pygame.K_RIGHT:
+                    self.direction.x = 0
+                    self.moving_x = False
+
+                if event.key == pygame.K_LEFT:
+                    self.direction.x = 0
+                    self.moving_x = False
 
     def set_movement(self, joy):
         if joy.get_hat(0)[1] == 1:
@@ -278,13 +365,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = self.rect.y + self.direction.y * speed
         self.collision(1)
 
-    def wave_value(self):
-        value = sin(pygame.time.get_ticks())
-        if value >= 0:
-            return 255
-        else:
-            return 0
-
     def update(self):
         if self.health > 0:
             self.move(self.speed)
@@ -314,7 +394,7 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.sprites_down_s[int(self.current_sprite)]
 
             if not self.vulnerable:
-                alpha = self.wave_value()
+                alpha = wave_value()
                 self.image.set_alpha(alpha)
             else:
                 self.image.set_alpha(255)

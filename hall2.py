@@ -11,28 +11,28 @@ class Hall2:
         self.obstacle = pygame.sprite.Group()
         self.stage_hazard = pygame.sprite.Group()
 
-        self.decour = pygame.sprite.Group()
+        self.decor = pygame.sprite.Group()
         self.surface = pygame.display.get_surface()
         # Floor
-        self.floor = pygame.image.load("assets/decour/floor/floor_asset.png")
-        self.floor_bloody_1 = pygame.image.load("assets/decour/floor/floor_bloody.png")
-        self.floor_bloody_2 = pygame.image.load("assets/decour/floor/floor_bloody2.png")
-        self.floor_broken = pygame.image.load("assets/decour/floor/floor_broken.png")
-        self.floor_slime_1 = pygame.image.load("assets/decour/floor/floor_slime.png")
-        self.floor_slime_2 = pygame.image.load("assets/decour/floor/floor_slime2.png")
+        self.floor = pygame.image.load("assets/decor/floor/floor_asset.png")
+        self.floor_bloody_1 = pygame.image.load("assets/decor/floor/floor_bloody.png")
+        self.floor_bloody_2 = pygame.image.load("assets/decor/floor/floor_bloody2.png")
+        self.floor_broken = pygame.image.load("assets/decor/floor/floor_broken.png")
+        self.floor_slime_1 = pygame.image.load("assets/decor/floor/floor_slime.png")
+        self.floor_slime_2 = pygame.image.load("assets/decor/floor/floor_slime2.png")
         # Walls
-        self.wall_painting_1 = pygame.image.load("assets/decour/wall/wall_painting1.png")
-        self.wall_window_1 = pygame.image.load("assets/decour/wall/wall_window.png")
+        self.wall_painting_1 = pygame.image.load("assets/decor/wall/wall_painting1.png")
+        self.wall_window_1 = pygame.image.load("assets/decor/wall/wall_window.png")
         self.wall_top = pygame.image.load("assets/wall/wall_top.png")
         self.wall_top_side = pygame.image.load("assets/wall/wall_top_side.png")
-        self.wall_door_top1 = pygame.image.load("assets/wall/wall_doortop1.png")
-        self.wall_corner_real = pygame.image.load("assets/wall/wall_cornerreal.png")
+        self.wall_door_top1 = pygame.image.load("assets/wall/wall_door_top1.png")
+        self.wall_corner_real = pygame.image.load("assets/wall/wall_corner_real.png")
         # Door
         self.door_top = pygame.image.load("assets/door/door_top1.png")
         # Pipes
-        self.pipe_top_left_end = pygame.image.load("assets/pipe/pipe_safe/pipe_topleftend.png")
+        self.pipe_top_left_end = pygame.image.load("assets/pipe/pipe_safe/pipe_top_left_end.png")
         self.pipe_top = pygame.image.load("assets/pipe/pipe_broken/pipe_top.png")
-        self.pipe_top_right_end = pygame.image.load("assets/pipe/pipe_safe/pipe_toprightend.png")
+        self.pipe_top_right_end = pygame.image.load("assets/pipe/pipe_safe/pipe_top_right_end.png")
         # Stretchers
         self.stretcher_horizontal2 = pygame.image.load("assets/stretcher/stretcher_horizontal2.png")
         self.stretcher_vertical1 = pygame.image.load("assets/stretcher/stretcher_vertical1.png")
@@ -45,13 +45,13 @@ class Hall2:
 
     def draw_scenario(self):
         self.scenario.draw(self.surface)
-        self.decour.draw(self.surface)
+        self.decor.draw(self.surface)
         # Poison
         self.poison.animate()
         self.poison.update()
 
-    def get_group_decour(self):
-        return self.decour
+    def get_group_decor(self):
+        return self.decor
 
     def get_group_scenario(self):
         return self.scenario
@@ -117,22 +117,22 @@ class Hall2:
         # Door
         door_top_rotated = pygame.transform.rotate(self.door_top, 180)
         door_top_flip = pygame.transform.flip(door_top_rotated, True, False)
-        Element((325, 525), [self.decour], door_top_flip)
-        Element((700, 525), [self.decour], door_top_rotated)
+        Element((325, 525), [self.decor], door_top_flip)
+        Element((700, 525), [self.decor], door_top_rotated)
 
         # Window
         wall_window_1_rotated = pygame.transform.flip(self.wall_window_1, True, False)
-        Element((700, 0), [self.decour], self.wall_window_1)
-        Element((625, 0), [self.decour], wall_window_1_rotated)
+        Element((700, 0), [self.decor], self.wall_window_1)
+        Element((625, 0), [self.decor], wall_window_1_rotated)
 
         # Painting
         wall_painting_1_rotated = pygame.transform.rotate(self.wall_painting_1, 180)
-        Element((512.5, 525), [self.decour], wall_painting_1_rotated)
+        Element((512.5, 525), [self.decor], wall_painting_1_rotated)
 
         # Pipe
-        Element((325, 0), [self.decour], self.pipe_top_left_end)
-        Element((400, 0), [self.decour], self.pipe_top)
-        Element((475, 0), [self.decour], self.pipe_top_right_end)
+        Element((325, 0), [self.decor], self.pipe_top_left_end)
+        Element((400, 0), [self.decor], self.pipe_top)
+        Element((475, 0), [self.decor], self.pipe_top_right_end)
 
         # Stretchers
         Element((400, 375), [self.scenario, self.obstacle], self.stretcher_vertical1)

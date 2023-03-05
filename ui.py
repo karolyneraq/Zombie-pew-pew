@@ -103,7 +103,7 @@ class UI:
             self.life_p2_1.draw(self.display_surface)
         elif self.health_2 == 2:
             self.life_p2_2.draw(self.display_surface)
-        elif self.health_1 == 3:
+        elif self.health_2 == 3:
             self.life_p2_3.draw(self.display_surface)
 
         # Player 1

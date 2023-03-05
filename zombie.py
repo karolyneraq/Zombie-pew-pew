@@ -4,6 +4,14 @@ import pygame
 from config import *
 
 
+def wave_value():
+    value = sin(pygame.time.get_ticks())
+    if value >= 0:
+        return 255
+    else:
+        return 0
+
+
 class Zombie(pygame.sprite.Sprite):
     def __init__(self, path, spawn, up, right, left, down, walking):
         super().__init__()
@@ -32,15 +40,16 @@ class Zombie(pygame.sprite.Sprite):
         self.sprites_up_w.append(
             pygame.transform.scale(pygame.image.load(path + "back/zombie_backWalk5.png"), (60, 60)))
         self.sprites_right_w.append(
-            pygame.transform.scale(pygame.image.load(path + "right/zombie_walkright1.png"), (60, 60)))
+            pygame.transform.scale(pygame.image.load(path + "right/zombie_walk_right1.png"), (60, 60)))
         self.sprites_right_w.append(
-            pygame.transform.scale(pygame.image.load(path + "right/zombie_walkright2.png"), (60, 60)))
+            pygame.transform.scale(pygame.image.load(path + "right/zombie_walk_right2.png"), (60, 60)))
         self.sprites_right_w.append(
-            pygame.transform.scale(pygame.image.load(path + "right/zombie_walkright3.png"), (60, 60)))
+            pygame.transform.scale(pygame.image.load(path + "right/zombie_walk_right3.png"), (60, 60)))
         self.sprites_right_w.append(
-            pygame.transform.scale(pygame.image.load(path + "right/zombie_walkright4.png"), (60, 60)))
+            pygame.transform.scale(pygame.image.load(path + "right/zombie_walk_right4.png"), (60, 60)))
         self.sprites_right_w.append(
-            pygame.transform.scale(pygame.image.load(path + "right/zombie_walkright5.png"), (60, 60)))
+            pygame.transform.scale(pygame.image.load(path + "right/zombie_walk_right5.png"), (60, 60)))
+
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[0], True, False))
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[1], True, False))
         self.sprites_left_w.append(pygame.transform.flip(self.sprites_right_w[2], True, False))
@@ -166,13 +175,6 @@ class Zombie(pygame.sprite.Sprite):
         self.vulnerable_time = pygame.time.get_ticks()
         self.health -= 1
 
-    def wave_value(self):
-        value = sin(pygame.time.get_ticks())
-        if value >= 0:
-            return 255
-        else:
-            return 0
-
     def update(self):
         if self.walking:
             self.move()
@@ -192,7 +194,7 @@ class Zombie(pygame.sprite.Sprite):
             self.image = self.sprites_down_w[int(self.current_sprite)]
 
         if not self.vulnerable:
-            alpha = self.wave_value()
+            alpha = wave_value()
             self.image.set_alpha(alpha)
         else:
             self.image.set_alpha(255)

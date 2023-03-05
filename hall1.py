@@ -17,25 +17,25 @@ class Hall1:
         self.wall_top = pygame.image.load("assets/wall/wall_top.png")
         self.wall_corner_top1 = pygame.image.load("assets/wall/tall_corner1.png")
         self.wall_corner_top2 = pygame.image.load("assets/wall/tall_corner2.png")
-        self.wall_door_top1 = pygame.image.load("assets/wall/wall_doortop1.png")
-        self.wall_door_top2 = pygame.image.load("assets/wall/wall_doortop2.png")
-        self.wall_corner_real = pygame.image.load("assets/wall/wall_cornerreal.png")
-        self.wall_window_1 = pygame.image.load("assets/decour/wall/wall_window.png")
-        self.wall_window = pygame.image.load("assets/decour/wall/wall_window.png")
+        self.wall_door_top1 = pygame.image.load("assets/wall/wall_door_top1.png")
+        self.wall_door_top2 = pygame.image.load("assets/wall/wall_door_top2.png")
+        self.wall_corner_real = pygame.image.load("assets/wall/wall_corner_real.png")
+        self.wall_window_1 = pygame.image.load("assets/decor/wall/wall_window.png")
+        self.wall_window = pygame.image.load("assets/decor/wall/wall_window.png")
 
         # Pipes
-        self.pipe_top_left_end = pygame.image.load("assets/pipe/pipe_safe/pipe_topleftend.png")
+        self.pipe_top_left_end = pygame.image.load("assets/pipe/pipe_safe/pipe_top_left_end.png")
         self.pipe_top = pygame.image.load("assets/pipe/pipe_broken/pipe_top.png")
-        self.pipe_top_right_end = pygame.image.load("assets/pipe/pipe_safe/pipe_toprightend.png")
+        self.pipe_top_right_end = pygame.image.load("assets/pipe/pipe_safe/pipe_top_right_end.png")
 
         # Stretchers
         self.stretcher_horizontal1 = pygame.image.load("assets/stretcher/stretcher_horizontal1.png")
 
         # Floor
-        self.floor = pygame.image.load("assets/decour/floor/floor_asset.png")
-        self.floor_bloody1 = pygame.image.load("assets/decour/floor/floor_bloody.png")
-        self.floor_bloody2 = pygame.image.load("assets/decour/floor/floor_bloody2.png")
-        self.floor_broken = pygame.image.load("assets/decour/floor/floor_broken.png")
+        self.floor = pygame.image.load("assets/decor/floor/floor_asset.png")
+        self.floor_bloody1 = pygame.image.load("assets/decor/floor/floor_bloody.png")
+        self.floor_bloody2 = pygame.image.load("assets/decor/floor/floor_bloody2.png")
+        self.floor_broken = pygame.image.load("assets/decor/floor/floor_broken.png")
 
         # Poison
         self.poison = Poison(550, 150, "top")
@@ -122,4 +122,3 @@ class Hall1:
         # Poison
         self.scenario.add(self.poison)
         self.stage_hazard.add(self.poison)
-

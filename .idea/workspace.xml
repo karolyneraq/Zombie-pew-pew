@@ -2,7 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f223b3ce-c3a5-4049-85f3-c10c81db0ce4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/floor/floor_asset.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/floor/floor_asset.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/floor/floor_bloody.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/floor/floor_bloody.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/floor/floor_bloody2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/floor/floor_bloody2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/floor/floor_broken.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/floor/floor_broken.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/floor/floor_slime.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/floor/floor_slime.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/floor/floor_slime2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/floor/floor_slime2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/wall/wall_painting1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/wall/wall_painting1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/wall/wall_painting2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/wall/wall_painting2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/wall/wall_painting3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/wall/wall_painting3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/wall/wall_window.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/wall/wall_window.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/decour/wall/wall_window2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/decor/wall/wall_window2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pipe/pipe_safe/pipe_topleftend.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pipe/pipe_safe/pipe_top_left_end.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pipe/pipe_safe/pipe_toprightend.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pipe/pipe_safe/pipe_top_right_end.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/wall/wall_cornerreal.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/wall/wall_corner_real.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/wall/wall_doortop1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/wall/wall_door_top1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/zombie/right/zombie_walkright1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/zombie/right/zombie_walk_right1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/zombie/right/zombie_walkright2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/zombie/right/zombie_walk_right2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/zombie/right/zombie_walkright3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/zombie/right/zombie_walk_right3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/zombie/right/zombie_walkright4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/zombie/right/zombie_walk_right4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/zombie/right/zombie_walkright5.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/zombie/right/zombie_walk_right5.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hall1.py" beforeDir="false" afterPath="$PROJECT_DIR$/hall1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hall2.py" beforeDir="false" afterPath="$PROJECT_DIR$/hall2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room1.py" beforeDir="false" afterPath="$PROJECT_DIR$/room1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scenario.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zombie.py" beforeDir="false" afterPath="$PROJECT_DIR$/zombie.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +40,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MKfhscXvessqpuqRfECi3ctjT9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RunManager">
     <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Zombie-pew-pew" />
@@ -41,7 +83,15 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f223b3ce-c3a5-4049-85f3-c10c81db0ce4" name="Changes" comment="" />
+      <created>1677521318902</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677521318902</updated>
+    </task>
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

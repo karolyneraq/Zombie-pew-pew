@@ -11,7 +11,6 @@ from element import Element
 pygame.init()
 pygame.joystick.init()
 Joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())]
-print(Joysticks)
 
 # clock
 clock = pygame.time.Clock()
@@ -40,7 +39,6 @@ zombie_group.add(zombie)
 
 zombie_list = []
 for y in range(75, 451, 75):
-    print(y)
     zombie_list.append(Zombie("assets/zombie/", (850, y), True, False, False, False, False))
 
 zombie_list_group = pygame.sprite.Group()
@@ -51,7 +49,6 @@ for zombie in zombie_list:
 horde_wave = 1
 zombie_horde = []
 for y in range(75, 451, 75):
-    print(y)
     zombie_horde.append(Zombie("assets/zombie/", (850, y), True, False, False, False, True))
 
 
@@ -98,16 +95,20 @@ while loop:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             loop = False
+        if len(Joysticks) == 0:
+            cow1.set_movement_keys(event, 1)
+            cow2.set_movement_keys(event, 2)
 
     if pygame.time.get_ticks() - time_music <= 0:
         music.play()
         time_music = pygame.time.get_ticks()
 
     # Movement Keys
-    cow1.set_movement(pygame.joystick.Joystick(0))
-    cow1.set_fire(pygame.joystick.Joystick(0))
-    cow2.set_movement(pygame.joystick.Joystick(1))
-    cow2.set_fire(pygame.joystick.Joystick(1))
+    if Joysticks:
+        cow1.set_movement(pygame.joystick.Joystick(0))
+        cow1.set_fire(pygame.joystick.Joystick(0))
+        cow2.set_movement(pygame.joystick.Joystick(1))
+        cow2.set_fire(pygame.joystick.Joystick(1))
 
     if not victory and len(player_group) != 0:
         # Moving the objects
@@ -134,12 +135,21 @@ while loop:
 
             zombie_group.draw(screen)
 
-            if cow1.get_rect().x == 790 and 250 <= cow1.get_rect().y <= 300 or cow2.get_rect().x == 790 and \
-                    250 <= cow2.get_rect().y <= 300:
-                door_open = True
-                screen.blit(background3, (175, 0))
-                cow1.set_rect_topleft(325, 275)
-                cow2.set_rect_topleft(325, 350)
+            if len(player_group) == 2:
+                if cow1.get_rect().x == 790 and 250 <= cow1.get_rect().y <= 300 and cow2.get_rect().x == 790 and \
+                        250 <= cow2.get_rect().y <= 300:
+                    door_open = True
+                    screen.blit(background3, (175, 0))
+                    cow1.set_rect_top_left(325, 275)
+                    cow2.set_rect_top_left(325, 350)
+
+            else:
+                if cow1.get_rect().x == 790 and 250 <= cow1.get_rect().y <= 300 or cow2.get_rect().x == 790 and \
+                        250 <= cow2.get_rect().y <= 300:
+                    door_open = True
+                    screen.blit(background3, (175, 0))
+                    cow1.set_rect_top_left(325, 275)
+                    cow2.set_rect_top_left(325, 350)
 
         elif not hall_end:
             ui.set_health_player1(cow1.get_health())
@@ -160,8 +170,8 @@ while loop:
             if cow1.get_rect().x >= 860 or cow2.get_rect().x >= 860:
                 hall_end = True
                 screen.blit(background3, (175, 0))
-                cow1.set_rect_topleft(250, 275)
-                cow2.set_rect_topleft(325, 350)
+                cow1.set_rect_top_left(250, 275)
+                cow2.set_rect_top_left(325, 350)
         else:
             if horde_wave == 1:
                 if len(zombie_group) == 0:
