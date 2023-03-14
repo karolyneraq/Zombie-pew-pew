@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 # Playback
 music = pygame.mixer.Sound("assets/sounds/theme_song.mp3")
 music.set_volume(0.25)
-music.play()
+music.play(-1)
 time_music = pygame.time.get_ticks()
 
 # screen
@@ -136,8 +136,8 @@ while loop:
             zombie_group.draw(screen)
 
             if len(player_group) == 2:
-                if cow1.get_rect().x == 790 and 250 <= cow1.get_rect().y <= 300 and cow2.get_rect().x == 790 and \
-                        250 <= cow2.get_rect().y <= 300:
+                if ((cow1.get_rect().x == 790 and 240 <= cow1.get_rect().y <= 300) or
+                        (cow2.get_rect().x == 790 and 240 <= cow2.get_rect().y <= 300)):
                     door_open = True
                     screen.blit(background3, (175, 0))
                     cow1.set_rect_top_left(325, 275)
